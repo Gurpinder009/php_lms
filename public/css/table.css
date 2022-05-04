@@ -1,0 +1,83 @@
+/* Styling responsive tables  */
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-radius: 2px;
+  overflow: hidden;
+  width:fit-content;
+  display: block;
+  box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.2);
+}
+thead {
+  box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.9);
+
+  background-color: rgb(255, 255, 255);
+}
+
+th {
+  text-transform: capitalize;
+  padding: 0.8em 1.2em;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgb(255, 255, 255);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: rgb(231, 231, 231);
+}
+
+td {
+  padding: 0.5em 1em;
+}
+
+@media screen and (max-width: 700px) {
+  .main {
+    padding: 0;
+    margin: 0;
+  }
+
+  table {
+    display: block;
+    padding: 1em;
+    width: 100%;
+    box-shadow: none;
+    
+  }
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: block;
+  }
+
+  tr {
+    display: block;
+    border-radius: 10px;
+    width: 100%;
+    overflow: hidden;
+    margin: 1.5em 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  }
+
+  td {
+    display: flex;
+    padding: 0.8em 1.4em;
+    background-color: #fff;
+    justify-content: space-between;
+  }
+
+  td:nth-child(odd) {
+    background-color: aliceblue;
+  }
+
+  td::before {
+    content: attr(data-label);
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+}

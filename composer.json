@@ -1,0 +1,23 @@
+{
+  "name": "dells/php_models",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Config\\": "config/",
+      "Database\\": "database/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Gurpinder09",
+      "email": "grewalgurpinder09@gmail.com"
+    }
+  ],
+  "require": {},
+  "scripts": {
+    "start":[ "Composer\\Config::disableProcessTimeout", "php -S localhost:8000"],
+    "migrate": "php database/migrations/Migration.php",
+    "seed": "php database/seeders/Seeder.php"
+    
+  }
+}
