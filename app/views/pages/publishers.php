@@ -16,12 +16,7 @@ require_once __DIR__ . "/../layout/navbar.php";
 <link rel="stylesheet" href="/public/css/table.css">
 <div class="table-wrapper">
     <h1>Publishers</h1>
-    <form class="book-search">
-        <input type="text" >
-        <button class="search-button" type="submit">
-            Search
-        </button>
-</form>
+   
     <table>
         <thead>
             <tr>

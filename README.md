@@ -1,0 +1,2 @@
+# php_lms
+Firstly, this project requires php8.0 with mysql running on machine. Secondly, "composer" with "curl" enabled is required for this project to work properly. In Addition, you need to edit ".env-demo" file according to your system setting. After that rename ".env-demo" -> ".env" Install the required dependencies by using command "composer install" At last, use "composer update" && "composer start" to run this project.

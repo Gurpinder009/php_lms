@@ -83,7 +83,7 @@ class AuthorModel implements ModelInterface
         $stmt = null;
         try {
             $conn = DatabaseConnection::getInstance();
-            $stmt = $conn->prepare("INSERT INTO authors(name,contact_info) values (:name,:info);");
+            $stmt = $conn->prepare("update authors(name,contact_info) values (:name,:info);");
             $stmt->bindParam(":name", $data['name']);
             $stmt->bindParam(":info", $data['contact_info']);
             return $stmt->execute();
