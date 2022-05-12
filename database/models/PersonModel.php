@@ -2,43 +2,45 @@
 
 namespace Database\Models;
 use Database\DatabaseConnection;
-use PDO;
-use PDOException;
 
 class PersonModel{
     
     private function __construct(){}
 
-    public static function all(){
+     static function all(){
         try{
             $conn = DatabaseConnection::getInstance();
             return $conn->query("select * from person")->fetchAll(\PDO::FETCH_ASSOC);
         }catch(\PDOException $ex){
-            echo $ex->getMessage();
+            return ["error"=> $ex->getMessage()];
         }
     }
 
-    public static function find(int $id){
+     static function find(int $id){
         $stmt = null;
         try{
             $conn = DatabaseConnection::getInstance();
             $stmt = $conn->prepare("select * from person where id = :id");$stmt->bindParam(":id",$id);
             $stmt->execute();
-            return $stmt->fetchObject();
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if(isset($result["name"])){
+                throw new \PDOException("No Data Available");
+            }
+            return $result;
         }catch(\PDOException $ex){
-            echo $ex->getMessage();
+            return ["error"=> $ex->getMessage()];
         }    
     }
 
-    public static function LastInsertId(){
+     static function LastInsertId(){
         try{
-            return DatabaseConnection::getInstance()->query("select last_insert_id() from person;")->fetch(PDO::FETCH_ASSOC)['last_insert_id()'];
+            return DatabaseConnection::getInstance()->query("select last_insert_id() from person;")->fetch()['last_insert_id()'];
         }catch(\PDOException $ex){
-            echo $ex->getMessage();
+            return ["error"=> $ex->getMessage()];
         }
     }
 
-    public static function insert($data){
+     static function insert($data){
         $stmt = null;
         try{
             $conn = DatabaseConnection::getInstance();
@@ -54,8 +56,8 @@ class PersonModel{
             $stmt->bindParam(":password",$data['password']);
             return $stmt->execute();
 
-        }catch(PDOException $ex){
-            return "person".$ex->getMessage();
+        }catch(\PDOException $ex){
+            return ["error"=> $ex->getMessage()];
         }
     }
 }

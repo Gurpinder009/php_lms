@@ -9,6 +9,8 @@ class Migration
 
     public static function create()
     {
+        // self::$conn->exec("CREATE DATABASE IF NOT EXISTS php_project");
+        //     self::$conn->exec("use php_project;");
         UsersMigration::create();
         BooksMigration::create();
         AuthorsMigration::create();

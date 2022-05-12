@@ -7,7 +7,13 @@ function menu() {
   }
 }
 
+
+
+
+
+
 function toggle_password_visibility(signPassword) {
+  console.log("working")
   let x = document.getElementById(signPassword);
   x.getAttribute("type") === "password"
     ? x.setAttribute("type", "text")
@@ -32,6 +38,7 @@ function verified(e) {
 }
 
 function validateName(e) {
+  e.value = e.value.trim();
   let NamePattern = /^[a-z ]+$/i;
   if (NamePattern.test(e.value) === false) {
     unverified(e, "Only Alpabets are allowed");
@@ -46,7 +53,7 @@ function validateName(e) {
 }
 
 function validateEmail(e) {
-  
+  e.value = e.value.trim();
   if (e.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) == null) {
     unverified(e, "Valid Email address is required");
     return false;
@@ -57,6 +64,7 @@ function validateEmail(e) {
 }
 
 function validateNumber(e){
+  e.value = e.value.trim();
   let NumberPattern = /^[0-9]{1,3}$/;
   if(NumberPattern.test(e.value)===false){
     unverified(e,"Only Number are allowed");
@@ -69,6 +77,7 @@ function validateNumber(e){
 }
 
 function validatePhoneNum(e) {
+  e.value = e.value.trim();
   let PhoneNumberPattern = /^[0-9]+$/;
   if (PhoneNumberPattern.test(e.value) == false) {
     unverified(e, "Only Numbers are allowed");
@@ -83,6 +92,7 @@ function validatePhoneNum(e) {
 }
 
 function validateDateOfBirth(e) {
+  e.value = e.value.trim();
   if (e.value == "") {
     return false;
   } else {
@@ -91,6 +101,7 @@ function validateDateOfBirth(e) {
 }
 
 function validatePinCode(e) {
+  e.value = e.value.trim();
   let PinPattern = /^[0-9]+$/i;
   if (PinPattern.test(e.value) === false) {
     unverified(e, "Pin-codes only contains numbers");
@@ -105,6 +116,7 @@ function validatePinCode(e) {
 }
 
 function validatePassword(e) {
+  e.value = e.value.trim();
   let NumberPattern = /[0-9]{2,}/;
   let AlphabetsPattern = /[a-z]{3,}/;
   let SpecialPattern = /[@_]{1,}/;
@@ -126,6 +138,7 @@ function validatePassword(e) {
 }
 
 function validateConfirmPassword(e) {
+  e.value = e.value.trim();
   x = document.getElementById("signPassword");
   if (x.value !== e.value) {
     unverified(e, "Passwords don't match");
@@ -162,6 +175,7 @@ function validateBookForm(e){
 
 
 function validateCondtion(e){
+  e.value = e.value.trim();
   let conditionPattern = /(bad|good|best)/ 
   if(conditionPattern.test(e.value) ===false){
     unverified(e,"Invalidate Condtion");
@@ -173,15 +187,59 @@ function validateCondtion(e){
   }
 }
 
+function validateTitle(e){
+  e.value = e.value.trim();
+  let NamePattern = /^[a-z '_]+$/i;
+  if (NamePattern.test(e.value) === false) {
+    unverified(e, "Only name is allowed");
+    return false;
+  } else if (e.value.length < 3) {
+    unverified(e, "Invalid length 3 is minimum");
+    return false;
+  } else {
+    verified(e);
+    return true;
+  }
+
+}
+
 
 function validateAuthorForm(e){
   return validateName(e['name']);
 }
 
 function validateCategoryForm(e){
-  return validateName(e['title']);
+  return validateTitle(e['title']);
 }
 
 function validatePublisherForm(e){
-  return validateName(e['name']);
+  return validateTitle(e['name']);
+}
+
+
+document.addEventListener("click",(e)=>{
+  let dropDown = e.target.matches("[drop-down]");
+  let dropDownBtn = e.target.matches("[drop-down-btn]")
+  if(!dropDown && !dropDownBtn ){
+    closeAll();
+  }else if(!dropDown && dropDownBtn) {
+    closeAll();
+    e.target.nextElementSibling.classList.toggle("active");
+    
+  }
+  else return;
+
+});
+
+
+
+function closeAll(){
+  x = document.querySelectorAll("[drop-down]");
+    x.forEach(el=> {
+      el.classList.remove("active");
+    });
+}
+
+function closeAlert(e){
+  e.style.display = "none";
 }

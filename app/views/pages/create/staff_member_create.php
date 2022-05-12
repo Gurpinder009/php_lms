@@ -1,15 +1,18 @@
 <?php
 
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
+
 
 $title = "Add User";
 
 require_once __DIR__ . "/../../layout/navbar.php";?>
+<link rel="stylesheet" href="../../../../public/css/forms.css">
 
 <div class="registration-form-container">
   <div class="wrapper">
     <hr />
-    <form class="registration-form" action="/users/store" method="POST" onsubmit="return validateURForm(this)" autocomplete="off">
-      <h1 class="form-heading">User Registration</h1>
+    <form class="registration-form" action="/staff/store" method="POST" onsubmit="return validateURForm(this)" autocomplete="off">
+      <h1 class="form-heading">Staff Registration</h1>
       <div class="field-container">
         <div class="form-field">
           <input class="input-field" name="name" placeholder="Name" onblur="validateName(this)" />
@@ -17,13 +20,24 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
         </div>
 
         <div class="form-field">
-          <input class="input-field" name="email" placeholder="Email Address" onblur="validateEmail(this)" />
+          <input class="input-field" type="email" name="email" placeholder="Email Address" onblur="validateEmail(this)" />
           <small class="error" id="email-error"></small>
         </div>
 
         <div class="form-field">
           <input class="input-field" name="phone_num" placeholder="Phone Number" onblur="validatePhoneNum(this)" />
           <small class="error" id="phone_num-error"></small>
+        </div>
+
+        <div class="form-field">
+          <input class="input-field" name="salary" placeholder="Salary"  />
+          <small class="error" id="salary-error"></small>
+        </div>
+
+
+        <div class="form-field">
+          <input class="input-field" name="role_id" placeholder="Role"  />
+          <small class="error" id="role-error"></small>
         </div>
 
         <div class="form-field">

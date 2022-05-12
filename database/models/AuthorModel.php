@@ -1,54 +1,106 @@
 <?php
+declare(strict_types=1);
+
 namespace Database\Models;
 
 use Config\Interfaces\ModelInterface;
 use Database\DatabaseConnection;
 
-
 class AuthorModel implements ModelInterface
 {
-    public static function all(){
-        try{
+    static function all()
+    {
+        try {
             $conn = DatabaseConnection::getInstance();
             $result = $conn->query("select * from authors;");
-            return $result->fetchAll(\PDO::FETCH_ASSOC);
-        }catch(\PDOException $ex){
+            return $result->fetchAll();
+        } catch (\PDOException $ex) {
             echo $ex->getMessage();
         }
     }
-    public static function find($id){}
-    public static function insert($data){
+    static function find($id)
+    {
         $stmt = null;
-        try{
+        try {
             $conn = DatabaseConnection::getInstance();
-            $stmt = $conn->prepare("INSERT INTO authors(name,contact_info) values (:name,:info);");
-            $stmt->bindParam(":name",$data['name']);
-            $stmt->bindParam(":info",$data['contact_info']);
-            return $stmt->execute();
-        }catch(\PDOException $ex){
-            echo $ex->getMessage();
-        }finally{
+            $stmt = $conn->prepare("SELECT * FROM authors where id = :id");
+            $stmt->bindParam(":id", $id);
+            if ($stmt->execute()) {
+                return $stmt->fetch();
+            }
+        } catch (\PDOException $ex) {
+            echo ["error" => $ex->getMessage()];
+        } finally {
             unset($stmt);
         }
     }
-    public static function findByName($name){
+    static function insert($data)
+    {
         $stmt = null;
-        try{
+        try {
+            $conn = DatabaseConnection::getInstance();
+            $stmt = $conn->prepare("INSERT INTO authors(name,contact_info) values (:name,:info);");
+            $stmt->bindParam(":name", $data['name']);
+            $stmt->bindParam(":info", $data['contact_info']);
+            return $stmt->execute();
+        } catch (\PDOException $ex) {
+            echo $ex->getMessage();
+        } finally {
+            unset($stmt);
+        }
+    }
+    static function findByName($name)
+    {
+        $stmt = null;
+        try {
             $conn = DatabaseConnection::getInstance();
             $stmt = $conn->prepare("select * from authors where name=:name;");
-            $stmt->bindParam(":name",$name);
-            if($stmt->execute()){
-                return $stmt->fetch(\PDO::FETCH_ASSOC);
+            $stmt->bindParam(":name", $name);
+            if ($stmt->execute()) {
+                return $stmt->fetch();
             }
             return null;
-        }catch(\PDOException $ex){
+        } catch (\PDOException $ex) {
             echo $ex->getMessage();
-        }finally{
-
+        } finally {
         }
     }
 
-    public static function delete($id){}
-    public static function update($id,$data){}
-
+    static function delete(int $id)
+    {
+        $stmt = null; 
+        try{
+            $stmt= DatabaseConnection::getInstance()
+            ->prepare("delete from authors where id = :id;");
+            $stmt->bindParam(":id",$id);
+            return $stmt->execute();
+        }catch(\PDOException $ex){
+            return ["error",$ex->getMessage];
+        }
+    }
+    static function update($id, $data)
+    {
+        $stmt = null;
+        try {
+            $conn = DatabaseConnection::getInstance();
+            $stmt = $conn->prepare("INSERT INTO authors(name,contact_info) values (:name,:info);");
+            $stmt->bindParam(":name", $data['name']);
+            $stmt->bindParam(":info", $data['contact_info']);
+            return $stmt->execute();
+        } catch (\PDOException $ex) {
+            echo $ex->getMessage();
+        } finally {
+            unset($stmt);
+        }
+    }
+    static function count()
+    {
+        try {
+            $result = DatabaseConnection::getInstance()
+                ->query("select count(*) as author_count from authors")->fetch(\PDO::FETCH_ASSOC);
+            return $result["author_count"];
+        } catch (\PDOException $ex) {
+            return ["error" => $ex->getMessage()];
+        }
+    }
 }

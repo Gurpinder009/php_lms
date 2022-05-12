@@ -1,6 +1,5 @@
 <?php
 
-use Database\DatabaseConnection;
 use Database\Models\AuthorModel;
 use Database\Models\BookModel;
 use Database\Models\CategoryModel;

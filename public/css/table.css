@@ -1,83 +1,152 @@
 /* Styling responsive tables  */
 
-table {
-  border-collapse: collapse;
-  table-layout: fixed;
-  border-radius: 2px;
-  overflow: hidden;
-  width:fit-content;
-  display: block;
-  box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.2);
+.table-wrapper {
+  margin: 2em;
+  width: 80%;
+  max-width: 70em;
+  padding: 2em;
+  padding-top: 3em;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
-thead {
-  box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.9);
+.table-wrapper h1 {
+  font-weight: 900;
+  text-align: center;
+}
 
-  background-color: rgb(255, 255, 255);
+.table-wrapper div {
+  /* border:2px solid green; */
+  overflow: auto;
+}
+table {
+  /* display:block; */
+  width: 100%;
+  text-align: left;
+  overflow: auto;
+}
+
+tr {
+  background-color: rgb(243, 243, 243);
+  height: 2.8em;
 }
 
 th {
-  text-transform: capitalize;
-  padding: 0.8em 1.2em;
-  text-align: left;
-}
-
-tbody tr:nth-child(even) {
-  background-color: rgb(255, 255, 255);
-}
-
-tbody tr:nth-child(odd) {
-  background-color: rgb(231, 231, 231);
+  text-align: center;
+  min-width: 3em;
 }
 
 td {
-  padding: 0.5em 1em;
+  text-align: center;
+  text-transform: capitalize;
 }
 
-@media screen and (max-width: 700px) {
-  .main {
-    padding: 0;
+td a {
+  text-decoration: underline;
+}
+
+td:first-child {
+  text-transform: capitalize;
+}
+
+.book-search {
+  margin-top: 2em;
+  display: grid;
+  margin-bottom: 1em;
+  grid-template-columns: 3fr 1fr;
+  column-gap: 0.8em;
+  grid-auto-rows: 2.8em;
+}
+
+.book-search input[type="text"] {
+  padding: 0 0.6em;
+  outline: none;
+  background-color: rgb(235, 235, 235);
+  font-size: 1.1em;
+  border: 0;
+}
+
+.book-search button {
+  border: none;
+  display: block;
+  background-color: rgb(59, 109, 129);
+  color: white;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  font-size: medium;
+}
+
+@media screen and (max-width: 850px) {
+  .table-wrapper {
+    width: 100%;
     margin: 0;
+    padding: 4em 1em;
+    box-shadow: none;
+    max-width: 65em;
+    background-color: inherit;
   }
 
   table {
     display: block;
-    padding: 1em;
     width: 100%;
-    box-shadow: none;
-    
+    padding: 2em 0;
   }
+
   thead {
     display: none;
   }
 
   tbody {
     display: block;
+
+    width: 100%;
   }
 
   tr {
     display: block;
-    border-radius: 10px;
-    width: 100%;
-    overflow: hidden;
-    margin: 1.5em 0;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    background-color: white;
+    margin-bottom: 2em;
+    padding: 1.2em;
+    height: fit-content;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .book-search {
+    margin-bottom: 0;
+  }
+
+  .book-search input[type="text"] {
+    padding: 0 0.6em;
+    outline: none;
+    background-color: #fff;
+    border: 0;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .book-search button {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   }
 
   td {
+    /* display:block; */
+    width: 100%;
     display: flex;
-    padding: 0.8em 1.4em;
-    background-color: #fff;
+    min-height: 3em;
+    align-items: center;
     justify-content: space-between;
+    font-size: medium;
+    border-bottom: 1px solid rgb(88, 88, 88);
   }
 
-  td:nth-child(odd) {
-    background-color: aliceblue;
+  td[type="desc"],
+  td[type="address"] {
+    padding: 1.2em 0;
+    font-size: small;
   }
-
   td::before {
+    font-size: medium;
     content: attr(data-label);
-    text-align: left;
     text-transform: capitalize;
-    font-weight: bold;
+    font-weight: 600;
   }
 }

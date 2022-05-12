@@ -1,0 +1,10 @@
+.form-field > .input-field{
+    border-radius: 5px;
+    background-color: initial;
+    text-transform: capitalize;
+    border:1.4px solid rgba(0, 0, 0, 0.6);
+}
+
+.input-field[type="email"]{
+    text-transform: lowercase !important;
+  }

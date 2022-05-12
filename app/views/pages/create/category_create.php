@@ -1,7 +1,11 @@
 
 <?php
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
+
+
   $title ="Add Category";
   require_once(__DIR__."/../../layout/navbar.php"); ?>
+<link rel="stylesheet" href="../../../../public/css/forms.css">
 
 <div class="registration-form-container">
   <div class="wrapper">

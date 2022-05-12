@@ -13,11 +13,14 @@
       "email": "grewalgurpinder09@gmail.com"
     }
   ],
-  "require": {},
+  "require": {
+    "vlucas/phpdotenv": "^5.4"
+  },
   "scripts": {
     "start":[ "Composer\\Config::disableProcessTimeout", "php -S localhost:8000"],
     "migrate": "php database/migrations/Migration.php",
-    "seed": "php database/seeders/Seeder.php"
+    "seed": "php database/seeders/Seeder.php",
+    "networkstart":["Composer\\Config::disableProcessTimeout","php -S 192.168.2.107:8000"]
     
   }
 }

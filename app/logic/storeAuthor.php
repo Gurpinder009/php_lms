@@ -3,6 +3,10 @@
 use Database\Models\AuthorModel;
 
     if(isset($_POST['name'])){
-        echo AuthorModel::insert($_POST);
-        print_r(AuthorModel::all());
+        $result = AuthorModel::insert($_POST);
+        if(!$result["error"]){
+            header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/authors");
+            die();
+        }
+        print_r($result);
     }

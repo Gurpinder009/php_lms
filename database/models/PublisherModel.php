@@ -2,27 +2,26 @@
     namespace Database\Models;
 
 use Database\DatabaseConnection;
-use PDO;
-use PDOException;
+
 
     class PublisherModel {
         private function __construct(){}
 
-        public static function all(){
+         static function all(){
             try{
                 $conn =DatabaseConnection::getInstance();
-                return $conn->query("select * from publishers;")->fetchAll(PDO::FETCH_ASSOC);
+                return $conn->query("select * from publishers;")->fetchAll(\PDO::FETCH_ASSOC);
 
             }catch(\PDOException $ex){
                 echo $ex->getMessage();
             }
         }
 
-        public static function insert($data){
+         static function insert($data){
             $stmt = null;
             try{
                 $stmt = DatabaseConnection::getInstance()
-                ->prepare("INSERT INTO `publishers` (`publisher_name`, `contact_info`) values(:name,:info);");
+                ->prepare("INSERT INTO `publishers` (`name`, `contact_info`) values(:name,:info);");
                 $stmt->bindParam(":name",$data["name"]);
                 $stmt->bindParam(":info",$data["contact_info"]);
                 return $stmt->execute();
@@ -35,7 +34,7 @@ use PDOException;
         }
 
 
-        public static function findByName($name){
+         static function findByName($name){
             $stmt = null;
             try{
                 $conn= DatabaseConnection::getInstance();
@@ -45,10 +44,35 @@ use PDOException;
                     return $stmt->fetch(\PDO::FETCH_ASSOC);
                 }
             }catch(\PDOException $ex){
-                echo $ex->getMessage();
+                return ["error"=>$ex->getMessage()];
             }finally{
                 unset($stmt);
             }
         }
 
+         static function find(int $id){
+            $stmt = null;
+            try{
+                $conn= DatabaseConnection::getInstance();
+                $stmt = $conn->prepare("select * from publishers where id=:id;");
+                $stmt->bindParam(":id",$id);
+                if($stmt->execute()){
+                    return $stmt->fetch(\PDO::FETCH_ASSOC);
+                }
+            }catch(\PDOException $ex){
+                return ["error"=>$ex->getMessage()];
+            }finally{
+                unset($stmt);
+            }
+        }
+
+         static function count(){
+            try{
+                $result =DatabaseConnection::getInstance()
+                ->query("select count(*) as publishers_count from publishers")->fetch(\PDO::FETCH_ASSOC);
+                return $result["publishers_count"]; 
+            }catch(\PDOException $ex){
+                return ["error"=>$ex->getMessage()];
+            }
+        }
     }
