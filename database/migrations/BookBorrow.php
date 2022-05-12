@@ -10,7 +10,7 @@ class BookBorrowMigration
         $statement = "CREATE TABLE IF NOT EXISTS bookborrow(
            
             );
-        "; 
+        ''"; 
         self::createTable($statement);
     }
 }
