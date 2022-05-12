@@ -97,7 +97,7 @@ class AuthorModel implements ModelInterface
     {
         try {
             $result = DatabaseConnection::getInstance()
-                ->query("select count(*) as author_count from authors")->fetch(\PDO::FETCH_ASSOC);
+                ->query("select count(*) as author_count from authors")->fetch();
             return $result["author_count"];
         } catch (\PDOException $ex) {
             return ["error" => $ex->getMessage()];
