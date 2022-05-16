@@ -33,7 +33,7 @@ require_once __DIR__ . "/../layout/navbar.php";
                 echo '<td data-label="Id">' . $author["id"] . '</td>';
                 echo '<td data-label="Name">' . $author["name"] . '</td>';
                 echo '<td data-label="Other Info" type="desc">' . $author["contact_info"] . '</td>';
-                echo '<td data-label="Update"><a href="/author/'.$author["id"].'">Edit</a></td>';
+                echo '<td data-label="Update"><a href="/edit/author/'.$author["id"].'">Edit</a></td>';
                 echo "</tr>";
             }
             ?>

@@ -1,13 +1,13 @@
 <?php
 
 use Database\Models\AuthorModel;
-
-    $author_id = explode("/",$_SERVER["REQUEST_URI"])[2];
+    
+    $author_id = explode("/",$_SERVER["REQUEST_URI"])[3];
     $author = AuthorModel::find($author_id);
     if(isset($author["error"])){    
         print_r($author["error"]);
     }
-    $title="Update Author";
+    $title="Edit Author";
     require_once(__DIR__."/../../layout/navbar.php");
 ?>
 <link rel="stylesheet" href="/public/css/forms.css">
@@ -16,7 +16,7 @@ use Database\Models\AuthorModel;
 <div class="registration-form-container">
   <div class="wrapper">
     <hr />
-    <form class="registration-form" id="small-form" action="/author/update" method="POST" autocomplete="off" onsubmit="return validateAuthorForm(this)">
+    <form class="registration-form" id="small-form" <?php echo 'action="/update/author/'.$author["id"].'"'; ?> method="POST" autocomplete="off" onsubmit="return validateAuthorForm(this)" novalidate>
       <h1 class="form-heading">Update Author</h1>
       <div class="field-container" id="small-form-field-container">
         <div class="form-field">
@@ -27,7 +27,7 @@ use Database\Models\AuthorModel;
 
         <div class="form-field">
           <label for="author_other_detials">Other Information</label>
-          <input class="input-field" id="author_other_detials" name="contact_info" value=<?php echo $author["contact_info"]; ?>  />
+          <input class="input-field" type="email" id="author_other_detials" name="contact_info" value=<?php echo $author["contact_info"]; ?>  />
           <small class="error"></small>
         </div>
 

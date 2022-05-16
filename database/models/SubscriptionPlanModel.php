@@ -24,8 +24,13 @@ use Database\DatabaseConnection;
                 ->prepare("SELECT * FROM subscription_plans where id = :id");
                 $stmt->bindParam(":id",$id);
                 if($stmt->execute()){
-                    return $stmt->fetch();
+                    $result = $stmt->fetch();
+                    if(isset($result["id"])){
+                        return $result;
+                    }
+                    throw new \PDOException("No data found");
                 }
+
             }catch(\PDOException $ex){
                 return  ["error"=>$ex->getMessage()];
             }finally{

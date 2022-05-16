@@ -29,8 +29,6 @@ class StaffModel
                 $stmt->bindParam(":salary", $data["salary"]);
                 $stmt->bindParam(":role", $data["role"]);
                 $stmt->bindParam(":person_id", $id);
-
-
                 if($stmt->execute()){
                     $result = $conn->commit();
                     return $result;
@@ -128,11 +126,13 @@ class StaffModel
             $conn = DatabaseConnection::getInstance();
             $stmt = $conn->prepare("select * from person p inner join staff_members s on p.id = s.person_id where p.email = :email ");
             $stmt->bindParam(":email", $email);
-            $result = $stmt->execute();
-            if ($result) {
-                return $stmt->fetch();
+            if ($stmt->execute()) {
+                $result =  $stmt->fetch();
+                if(isset($result["id"])){
+                    return $result;
+                }
+                throw new \PDOException("No data found");
             }
-            throw new \PDOException("Failed Operation");
         } catch (\PDOException$ex) {
             return ["error"=>$ex->getMessage()];
         } finally {

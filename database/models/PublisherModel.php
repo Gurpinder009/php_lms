@@ -10,10 +10,10 @@ use Database\DatabaseConnection;
          static function all(){
             try{
                 $conn =DatabaseConnection::getInstance();
-                return $conn->query("select * from publishers;")->fetchAll(\PDO::FETCH_ASSOC);
+                return $conn->query("select * from publishers;")->fetchAll();
 
             }catch(\PDOException $ex){
-                echo $ex->getMessage();
+                return ["error"=>$ex->getMessage()];
             }
         }
 
@@ -26,7 +26,26 @@ use Database\DatabaseConnection;
                 $stmt->bindParam(":info",$data["contact_info"]);
                 return $stmt->execute();
             }catch(\PDOException $ex){
-                echo $ex->getMessage();
+                return ["error"=>$ex->getMessage()];
+
+            }finally{
+                unset($stmt);
+            }
+
+        }
+
+
+        static function update($id,$data){
+            $stmt = null;
+            try{
+                $stmt = DatabaseConnection::getInstance()
+                ->prepare("UPDATE PUBLISHERS SET name = :name, contact_info = :info WHERE id = :id;");
+                $stmt->bindParam(":name",$data["name"]);
+                $stmt->bindParam(":info",$data["contact_info"]);
+                $stmt->bindParam(":id",$id);
+                return $stmt->execute();
+            }catch(\PDOException $ex){
+                return ["error"=>$ex->getMessage()];
             }finally{
                 unset($stmt);
             }
@@ -41,7 +60,11 @@ use Database\DatabaseConnection;
                 $stmt = $conn->prepare("select * from publishers where name=:name;");
                 $stmt->bindParam(":name",$name);
                 if($stmt->execute()){
-                    return $stmt->fetch(\PDO::FETCH_ASSOC);
+                    $result = $stmt->fetch();
+                    if(isset($result["id"])){
+                        return $result["id"];
+                    }
+                    throw new \PDOException("No data found");
                 }
             }catch(\PDOException $ex){
                 return ["error"=>$ex->getMessage()];
@@ -50,6 +73,8 @@ use Database\DatabaseConnection;
             }
         }
 
+        
+
          static function find(int $id){
             $stmt = null;
             try{
@@ -57,7 +82,11 @@ use Database\DatabaseConnection;
                 $stmt = $conn->prepare("select * from publishers where id=:id;");
                 $stmt->bindParam(":id",$id);
                 if($stmt->execute()){
-                    return $stmt->fetch(\PDO::FETCH_ASSOC);
+                    $result = $stmt->fetch();
+                    if(isset($result["id"])){
+                        return $result;
+                    }
+                    throw new \PDOException("No data found");
                 }
             }catch(\PDOException $ex){
                 return ["error"=>$ex->getMessage()];

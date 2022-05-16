@@ -29,10 +29,11 @@ $routes = [
     
 
     //forms for updation
-    "/author/[0-9]+"=>"views/pages/update/author_update.php",
-    "/book/[0-9]+"=>"views/pages/update/book_update.php",
-    "/publisher/[0-9]+"=>"views/pages/update/publisher_update.php",
-    "/category/[0-9]+"=>"views/pages/update/category_update.php",
+    "/edit/author/[0-9]+"=>"views/pages/update/author_update.php",
+    "/edit/book/[0-9]+"=>"views/pages/update/book_update.php",
+    "/edit/publisher/[0-9]+"=>"views/pages/update/publisher_update.php",
+    "/edit/category/[0-9]+"=>"views/pages/update/category_update.php",
+    
 
 
 
@@ -55,6 +56,13 @@ $routes = [
     "/book/store" => "logic/storeBook.php",
     "/publisher/store" => "logic/storePublisher.php",
 
+
+    //updating user data 
+
+    "/update/author/[0-9]+"=>"logic/update/update_author.php",
+    "/update/category/[0-9]+"=>"logic/update/update_category.php",
+    "/update/publisher/[0-9]+"=>"logic/update/update_publisher.php",
+    "/update/book/[0-9]+"=>"logic/update/update_book.php"
 ];
 
 

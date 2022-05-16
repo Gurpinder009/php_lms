@@ -34,7 +34,7 @@ require_once __DIR__ . "/../layout/navbar.php";
                 echo '<td data-label="Id">' . $publisher["id"] . '</td>';
                 echo '<td data-label="Name">' . $publisher["name"] . '</td>';
                 echo '<td data-label="Other Information">' . $publisher["contact_info"] . '</td>';
-                echo '<td data-label="Update"><a href="/publisher/1">Edit</a></td>';
+                echo '<td data-label="Update"><a href="/edit/publisher/'.$publisher["id"].'">Edit</a></td>';
 
                 echo "</tr>";
             }

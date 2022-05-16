@@ -7,9 +7,7 @@ use Database\DatabaseConnection;
 class BookModel
 {
 
-    private function __construct()
-    {
-    }
+    private function __construct(){}
 
     static function all()
     {
@@ -17,30 +15,25 @@ class BookModel
             return DatabaseConnection::getInstance()->query(
                 "select b.*,a.name as author_name,c.name as category_name,p.name as publisher_name from  
                 (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id;"
-            )->fetchAll(\PDO::FETCH_ASSOC);
+            )->fetchAll();
         } catch (\PDOException $ex) {
             return ["error" => $ex->getMessage()];
         }
     }
-    //  static function find(){
-    //     try{
-    //         return DatabaseConnection::getInstance()->
-    //         query("select b.*,a.name,c.name from  authors a inner join books b on b.author_id = a.id inner join categories c on c.id = b.category_id and b.accession_no=1")
-    //         ->fetch(\PDO::FETCH_ASSOC);
-    //     }
-    //     catch(\PDOException $ex){
-    //         return ["error" => $ex->getMessage()];
-    //     }
-    // }
+  
 
     static function find(int $id)
     {
         $stmt = null;
         try {
-            $stmt = DatabaseConnection::getInstance()->prepare("select b.*,p.name as publisher_name,a.name as author_name,c.name as category_name from authors a inner join books b on b.author_id = a.id inner join categories c on c.id = b.category_id inner join publishers p on p.id=b.publisher_id where b.accession_no =:id;");
+            $stmt = DatabaseConnection::getInstance()->prepare("select b.*,p.name as publisher_name,a.name as author_name,c.name as category_name from authors a inner join books b on b.author_id = a.id inner join categories c on c.id = b.category_id inner join publishers p on p.id = b.publisher_id where b.accession_no =:id;");
             $stmt->bindParam(":id", $id);
             if ($stmt->execute()) {
-                return $stmt->fetch(\PDO::FETCH_ASSOC);
+                $result = $stmt->fetch();
+                if(isset($result["accession_no"])){
+                    return $result;
+                }
+                throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
             return ["error" => $ex->getMessage()];
@@ -50,20 +43,42 @@ class BookModel
     }
 
 
-    static function update()
+    static function update(int $id, $data)
     {
-        echo "update books info";
+        $stmt = null;
+        try {
+            $stmt = DatabaseConnection::getInstance()
+                ->prepare("UPDATE `books` SET `title` = :title,`year_of_publication` = :year_of_publication,`condition` = :condition,`page_count`= :page_count,`language`= :language,`volume` = :edition, author_id = :author_id, category_id = :category_id, publisher_id = :publisher_id where `accession_no` = :accession_no;");
+            $stmt->bindParam(":accession_no", $id);
+            $stmt->bindParam(":title", $data["title"]);
+            $stmt->bindParam(":author_id", $data["author_id"]);
+            $stmt->bindParam(":page_count", $data["page_count"]);
+            $stmt->bindParam(":year_of_publication", $data['year_of_publication']);
+            $stmt->bindParam(":category_id", $data["category_id"]);
+            $stmt->bindParam(":condition", $data["condition"]);
+            $stmt->bindParam(":edition", $data["edition"]);
+            $stmt->bindParam(":publisher_id", $data["publisher_id"]);
+            $stmt->bindParam(":language", $data["language"]);
+            return $stmt->execute();
+        } catch (\PDOException $ex) {
+            return ["error" => $ex->getMessage()];
+        } finally {
+            unset($stmt);
+        }
     }
+
+    
     static function delete()
     {
-        echo "delete book from books";
+
+        
     }
 
     static function count()
     {
         try {
             $result = DatabaseConnection::getInstance()
-                ->query("select count(*) as book_count from books")->fetch(\PDO::FETCH_ASSOC);
+                ->query("select count(*) as book_count from books")->fetch();
             return $result["book_count"];
         } catch (\PDOException $ex) {
             return ["error" => $ex->getMessage()];
@@ -75,16 +90,17 @@ class BookModel
         $stmt = null;
         try {
             $stmt = DatabaseConnection::getInstance()
-                ->prepare("INSERT INTO `books`(`accession_no`,`title`,`condition`,`language`,`edition`,`author_id`,`category_id`,`publisher_id`)values(:accession_no,:title,:condition,:language,:edition,:author_id,:category_id,:publisher_id);");
+                ->prepare("INSERT INTO `books`(`accession_no`,`title`,`year_of_publication`,`condition`,`page_count`,`language`,`volume`,`author_id`,`category_id`,`publisher_id`)values(:accession_no,:title,:year_of_publication,:condition,:page_count,:language,:edition,:author_id,:category_id,:publisher_id);");
             $stmt->bindParam(":accession_no", $data["accession_no"]);
             $stmt->bindParam(":title", $data["title"]);
-            $stmt->bindParam(":condition", $data["condition"]);
-            $stmt->bindParam(":language", $data["language"]);
-            $stmt->bindParam(":page_count", $data["page_count"]);
-            $stmt->bindParam(":edition", $data["edition"]);
             $stmt->bindParam(":author_id", $data["author_id"]);
+            $stmt->bindParam(":page_count", $data["page_count"]);
+            $stmt->bindParam(":year_of_publication", $data['year_of_publication']);
             $stmt->bindParam(":category_id", $data["category_id"]);
+            $stmt->bindParam(":condition", $data["condition"]);
+            $stmt->bindParam(":edition", $data["edition"]);
             $stmt->bindParam(":publisher_id", $data["publisher_id"]);
+            $stmt->bindParam(":language", $data["language"]);
             return $stmt->execute();
         } catch (\PDOException $ex) {
             return ["error" => $ex->getMessage()];

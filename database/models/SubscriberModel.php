@@ -31,7 +31,6 @@ class SubscriberModel
                     $result = $conn->commit();
                     return $result;
                 }
-                throw new \PDOException("Operation Failed");
             }
             throw new \PDOException($result["error"]);
         } catch (\PDOException $ex) {
@@ -65,11 +64,11 @@ class SubscriberModel
             $stmt->bindParam(":id", $id);
             if($stmt->execute()){
                 $result = $stmt->fetch();
-                if(isset($result["name"])){
+                if(isset($result["id"])){
                     return $result;
                 }
+                throw new \PDOException("No data Found");
             }
-            throw new \PDOException("No data Found");
         } catch (\PDOException$ex) {
             return ["error"=> $ex->getMessage()];
         } finally {
@@ -123,11 +122,13 @@ class SubscriberModel
             $conn = DatabaseConnection::getInstance();
             $stmt = $conn->prepare("select * from person p inner join subscribers c on p.id = c.person_id where p.email = :email ");
             $stmt->bindParam(":email", $email);
-            $result = $stmt->execute();
-            if ($result) {
-                return $stmt->fetch();
+            if ($stmt->execute()) {
+                $result = $stmt->fetch();
+                if(isset($result["id"])){
+                    return $result;
+                }
+                throw new \PDOException("No data found");
             }
-            throw new \PDOException("Failed Operation");
         } catch (\PDOException$ex) {
             return ["error"=>$ex->getMessage()];
         } finally {
@@ -139,6 +140,7 @@ class SubscriberModel
      static function login(string $email, string $password)
     {
         $person = self::findUsingEmail($email);
+    
         if (isset($person["email"])) {
             if (isset($person["email"]) && $person["password"] === hash("sha256", $password)) {
                 session_start();

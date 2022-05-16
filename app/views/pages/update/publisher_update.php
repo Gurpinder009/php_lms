@@ -2,7 +2,7 @@
 
 use Database\Models\PublisherModel;
 
-$publisher_id = explode("/", $_SERVER["REQUEST_URI"])[2];
+$publisher_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $publisher = PublisherModel::find($publisher_id);
 if (isset($publisher["error"])) {
     print_r($publisher["error"]);
@@ -18,7 +18,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
 <div class="registration-form-container">
     <div class="wrapper">
         <hr />
-        <form class="registration-form" id="small-form" action="/publisher/update" onsubmit="return validatePublisherForm(this)" method="POST" autocomplete="off">
+        <form class="registration-form" id="small-form" action="/update/publisher/<?php echo $publisher["id"] ?>" onsubmit="return validatePublisherForm(this)" method="POST" autocomplete="off">
             <h1 class="form-heading">Add Publisher</h1>
             <div class="field-container" id="small-form-field-container">
                 <div class="form-field">

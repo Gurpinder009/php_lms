@@ -39,6 +39,7 @@ th {
 
 td {
   text-align: center;
+  max-width: 7em;
   text-transform: capitalize;
 }
 
@@ -111,6 +112,10 @@ td:first-child {
     height: fit-content;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   }
+  td{
+    max-width: 100%;
+  }
+
 
   .book-search {
     margin-bottom: 0;

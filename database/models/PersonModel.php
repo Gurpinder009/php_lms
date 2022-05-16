@@ -21,12 +21,13 @@ class PersonModel{
         try{
             $conn = DatabaseConnection::getInstance();
             $stmt = $conn->prepare("select * from person where id = :id");$stmt->bindParam(":id",$id);
-            $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-            if(isset($result["name"])){
+            if($stmt->execute()){
+                $result = $stmt->fetch();
+                if(isset($result["name"])){
+                    return $result;   
+                }
                 throw new \PDOException("No Data Available");
             }
-            return $result;
         }catch(\PDOException $ex){
             return ["error"=> $ex->getMessage()];
         }    

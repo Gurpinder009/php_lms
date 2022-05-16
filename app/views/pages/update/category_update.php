@@ -2,7 +2,7 @@
 
 use Database\Models\CategoryModel;
 
-$category_id = explode("/", $_SERVER["REQUEST_URI"])[2];
+$category_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $category = CategoryModel::find($category_id);
 if (isset($category["error"])) {
     print_r($category["error"]);
@@ -18,7 +18,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
 <div class="registration-form-container">
     <div class="wrapper">
         <hr />
-        <form class="registration-form" id="small-form" action="/category/update" onsubmit="return validateCategoryForm(this)" method="POST">
+        <form class="registration-form" id="small-form" action="/update/category/<?php echo $category["id"]; ?>" onsubmit="return validateCategoryForm(this)" method="POST" novalidate autocomplete="off">
             <h1 class="form-heading">Update Category</h1>
             <div class="field-container" id="small-form-field-container">
                 <div class="form-field">
@@ -29,7 +29,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
 
                 <div class="form-field">
                     <label for="desc">Description</label>
-                    <input class="input-field" id="desc" name="description" value="<?php echo $category["description"]  ?>" />
+                    <input class="input-field" id="desc" type="email" name="description" value="<?php echo $category["contact_info"]  ?>" />
                     <small class="error"></small>
                 </div>
 

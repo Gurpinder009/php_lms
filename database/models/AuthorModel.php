@@ -15,9 +15,10 @@ class AuthorModel implements ModelInterface
             $result = $conn->query("select * from authors;");
             return $result->fetchAll();
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error"=>$ex->getMessage()];
         }
     }
+
     static function find($id)
     {
         $stmt = null;
@@ -26,7 +27,11 @@ class AuthorModel implements ModelInterface
             $stmt = $conn->prepare("SELECT * FROM authors where id = :id");
             $stmt->bindParam(":id", $id);
             if ($stmt->execute()) {
-                return $stmt->fetch();
+                $result = $stmt->fetch();
+                if(isset($result["id"])){
+                    return $result;
+                }
+                throw new \PDOException("No data is available");
             }
         } catch (\PDOException $ex) {
             echo ["error" => $ex->getMessage()];
@@ -44,7 +49,7 @@ class AuthorModel implements ModelInterface
             $stmt->bindParam(":info", $data['contact_info']);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error"=>$ex->getMessage()];
         } finally {
             unset($stmt);
         }
@@ -57,12 +62,16 @@ class AuthorModel implements ModelInterface
             $stmt = $conn->prepare("select * from authors where name=:name;");
             $stmt->bindParam(":name", $name);
             if ($stmt->execute()) {
-                return $stmt->fetch();
+                $result =  $stmt->fetch();
+                if(isset($result["id"])){
+                    return $result["id"];
+                }
+                throw new \PDOException("No data available");
             }
-            return null;
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error"=>$ex->getMessage()];
         } finally {
+            unset($stmt);
         }
     }
 
@@ -83,12 +92,13 @@ class AuthorModel implements ModelInterface
         $stmt = null;
         try {
             $conn = DatabaseConnection::getInstance();
-            $stmt = $conn->prepare("update authors(name,contact_info) values (:name,:info);");
+            $stmt = $conn->prepare("update authors set name=:name,contact_info=:info where id = :id;");
             $stmt->bindParam(":name", $data['name']);
             $stmt->bindParam(":info", $data['contact_info']);
+            $stmt->bindParam(":id",$id);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error",$ex->getMessage()];
         } finally {
             unset($stmt);
         }

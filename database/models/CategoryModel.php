@@ -1,5 +1,5 @@
 <?php
-
+    declare(strict_types=1);
 namespace Database\Models;
 
 use Database\DatabaseConnection;
@@ -13,9 +13,10 @@ class CategoryModel
     {
         try {
             $conn = DatabaseConnection::getInstance();
-            return $conn->query("select * from categories;")->fetchAll(\PDO::FETCH_ASSOC);
+            return $conn->query("select * from categories;")->fetchAll();
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error" => $ex->getMessage()];
+            
         }
     }
 
@@ -31,9 +32,26 @@ class CategoryModel
             $stmt->bindParam(":contact_info", $data['description']);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error" => $ex->getMessage()];
+            
         } finally {
             unset($stmt);
+        }
+    }
+
+
+    static function update(int $id,$data){
+        $stmt = null;
+        try{
+            $stmt = DatabaseConnection::getInstance()
+            ->prepare("UPDATE CATEGORIES SET name = :name, contact_info = :info where id = :id");
+            $stmt->bindParam (":name",$data['name']);
+            $stmt->bindParam(":info",$data["description"]);
+            $stmt->bindParam(":id",$id); 
+            return $stmt->execute(); 
+
+        }catch(\PDOException $ex){
+            return ["error"=>$ex->getMessage()];
         }
     }
 
@@ -46,10 +64,15 @@ class CategoryModel
             $stmt = $conn->prepare("select * from categories where name=:name;");
             $stmt->bindParam(":name", $name);
             if ($stmt->execute()) {
-                return $stmt->fetch(\PDO::FETCH_ASSOC);
+                $result = $stmt->fetch();
+                if(isset($result["id"])){
+                    return $stmt->fetch()["id"];
+                }
+                throw new \PDOException("No data found");
             }
         } catch (\PDOException $ex) {
-            echo $ex->getMessage();
+            return ["error" => $ex->getMessage()];
+            
         } finally {
             unset($stmt);
         }
@@ -76,7 +99,11 @@ class CategoryModel
             $stmt = $conn->prepare("select * from categories where id=:id;");
             $stmt->bindParam(":id",$id);
             if($stmt->execute()){
-                return $stmt->fetch(\PDO::FETCH_ASSOC);
+                $result = $stmt->fetch();
+                if(isset($result["id"])){
+                    return $result;
+                }
+                throw new \PDOException("No data found");
             }
         }catch(\PDOException $ex){
             return ["error"=>$ex->getMessage()];

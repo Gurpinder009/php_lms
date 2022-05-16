@@ -30,6 +30,8 @@ require_once __DIR__ . "/../layout/navbar.php";
                 <th onclick="console.log('workign')">Title</th>
                 <th>Publisher</th>
                 <th>Language</th>
+                <th>Page Count</th>
+                <th>year of publication</th>
                 <th>Condition</th>
                 <th>Author</th>
                 <th>Category</th>
@@ -46,10 +48,13 @@ require_once __DIR__ . "/../layout/navbar.php";
                 echo '<td data-label="Accession Number">' . $book["publisher_name"] . '</td>';
 
                 echo '<td data-label="language">' . $book["language"] . '</td>';
+                echo '<td data-label="page_count">' . $book["page_count"] . '</td>';
+                echo '<td data-label="year_of_publication">' . $book["year_of_publication"] . '</td>';
+
                 echo '<td data-label="condition">' . $book["condition"] . '</td>';
                 echo '<td data-label="author">' . $book["author_name"] . '</td>';
                 echo '<td data-label="categories">' . $book["category_name"] . '</td>';
-                echo '<td data-label="Update"><a href="/book/'.$book["accession_no"].'">Edit</a></td>';
+                echo '<td data-label="Update"><a href="/edit/book/'.$book["accession_no"].'">Edit</a></td>';
 
                 echo "</tr>";
             }
