@@ -39,7 +39,7 @@
       ?>
 
       <span>
-        <a class="link link-loggout" href="/loggout">Loggout</a>
+        <a class="link link-loggout" href="/loggout">Logout</a>
       </span>
     </nav>
 

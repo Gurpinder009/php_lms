@@ -1,6 +1,7 @@
 <?php
 
 use Database\Models\BookModel;
+
 require_once __DIR__ . "/../../logic/auth_redirection_staff.php";
 
 
@@ -15,51 +16,39 @@ require_once __DIR__ . "/../layout/navbar.php";
 ?>
 
 <link rel="stylesheet" href="/public/css/table.css">
-<div class="table-wrapper">
+<div class="table-wrapper" >
     <h1>Books</h1>
     <form class="book-search">
-        <input type="text" >
+        <input type="text" onkeyup="searchBooks(this)" placeholder="Search">
         <button class="search-button" type="submit">
             Search
         </button>
-</form>
-    <table>
-        <thead>
-            <tr>
-                <th>Access_no </th>
-                <th onclick="console.log('workign')">Title</th>
-                <th>Publisher</th>
-                <th>Language</th>
-                <th>Page Count</th>
-                <th>year of publication</th>
-                <th>Condition</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th >Edit</th>
+    </form>
+    <div>
+        <table >
+            <thead>
+                <tr>
+                    <th>Access_no </th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Language</th>
+                    <th>Page Count</th>
+                    <th>year of publication</th>
+                    <th>Condition</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Edit</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($books as $book) {
-                echo "<tr>";
-                echo '<td data-label="Accession Number">' . $book["accession_no"] . '</td>';
-                echo '<td data-label="Title">' . $book["title"] . '</td>';
-                echo '<td data-label="Accession Number">' . $book["publisher_name"] . '</td>';
-
-                echo '<td data-label="language">' . $book["language"] . '</td>';
-                echo '<td data-label="page_count">' . $book["page_count"] . '</td>';
-                echo '<td data-label="year_of_publication">' . $book["year_of_publication"] . '</td>';
-
-                echo '<td data-label="condition">' . $book["condition"] . '</td>';
-                echo '<td data-label="author">' . $book["author_name"] . '</td>';
-                echo '<td data-label="categories">' . $book["category_name"] . '</td>';
-                echo '<td data-label="Update"><a href="/edit/book/'.$book["accession_no"].'">Edit</a></td>';
-
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+                </tr>
+            </thead>
+            <tbody id="element">
+            
+            </tbody>
+        </table>
+    </div>
 </div>
 <?php require_once(__DIR__ . "/../../views/layout/footer.php") ?>
+<script>
+    window.addEventListener("load",()=>searchBooks({value:""})); 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

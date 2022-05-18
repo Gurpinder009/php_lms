@@ -243,3 +243,38 @@ function closeAll(){
 function closeAlert(e){
   e.style.display = "none";
 }
+
+
+function searchBooks(e) {
+
+
+
+  axios
+    .get(`/search-books?title=${e.value}`)
+    .then((res) => {
+      console.log(res.data);
+      document.getElementById("element").innerHTML = "";
+      res.data.map((values) => {
+        document.getElementById(
+          "element"
+        ).innerHTML += `<tr>
+        <td data-label="Accession Number">${values.accession_no}</td>
+        <td data-label="Title">${values.title}</td>
+        <td data-label="Publisher">${values.publisher_name}</td>
+        <td data-label="language">${values.accession_no}</td>
+        <td data-label="page_count">${values.accession_no}</td>
+        <td data-label="year_of_publication">${values.accession_no}</td>
+        <td data-label="condition">${values.accession_no}</td>
+        <td data-label="author">${values.accession_no}</td>
+        <td data-label="categories">${values.accession_no}</td>
+        <td data-label="Update"><a href="/edit/book/">Edit</a></td>
+        </tr>`
+      });
+    })
+    .catch((error) => error);
+}
+
+
+function test(){
+  console.log("working");
+}

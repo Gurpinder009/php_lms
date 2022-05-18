@@ -42,6 +42,18 @@ class BookModel
         }
     }
 
+    static function search($data){
+        try {
+            return DatabaseConnection::getInstance()->query(
+                "select b.*,a.name as author_name,c.name as category_name,p.name as publisher_name from  
+                (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id where title like '%".$data."%';"
+            )->fetchAll();
+        } catch (\PDOException $ex) {
+            return ["error" => $ex->getMessage()];
+        }
+        
+    }
+
 
     static function update(int $id, $data)
     {

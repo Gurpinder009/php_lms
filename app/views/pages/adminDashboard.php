@@ -83,6 +83,14 @@ $subscription_plans_count = SubscriptionPlanModel::count();
         </div>
     </a>
 
+    <a class="tiles" href="/issue_book">
+        <div>
+            <h1><?php echo "9" ?></h1>
+            <h2>Issued Books</h2>
+        </div>
+    </a>
+
+
    
 
 

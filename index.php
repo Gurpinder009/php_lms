@@ -12,6 +12,7 @@ $routes = [
     "/staff/auth" => "logic/staff_auth.php",
     "/subscriber/auth" => "logic/subscriber_auth.php",
     "/login" => "views/pages/login.php",
+    "/search-books\?[title=a-zA-Z0-9\[\]_ %]+"=>"logic/bookSearch.php",
     "/login\?error=[a-zA-Z0-9\[\]_ %]+"=>"views/pages/login.php",
     "/subscriber/login"=>"views/pages/subscriber_login.php",
     "/subscriber/login\?error=[a-zA-Z0-9\[\]_ %]+"=>"views/pages/subscriber_login.php",
@@ -24,9 +25,8 @@ $routes = [
     "/subscribers"=>"views/pages/subscribers.php",
     "/subscription_plans"=>"views/pages/subscriptions.php",
     "/publishers"=>"views/pages/publishers.php",
-    "/staff_members"=>"views/pages/staff_members.php",
-
-    
+    "/staff_members"=>"views/pages/staff_members.php",  
+    "/issue_book"=>"views/pages/create/issue_book.php",    
 
     //forms for updation
     "/edit/author/[0-9]+"=>"views/pages/update/author_update.php",

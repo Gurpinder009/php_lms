@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '78d3c7b92c8f2df0598fceeae7e73071dcf724df',
+        'reference' => '86408713080aadba85c492a58cd92cae2e155891',
         'name' => 'dells/php_models',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '78d3c7b92c8f2df0598fceeae7e73071dcf724df',
+            'reference' => '86408713080aadba85c492a58cd92cae2e155891',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
