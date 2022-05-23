@@ -1,3 +1,4 @@
+<!-- Navigation for staff -->
 <div class="link-container">
         <div>
           <div class="link-btn" drop-down-btn>
@@ -17,7 +18,6 @@
           <div class="drop-down" drop-down>
             <a href="/staff_members">All Staff Members</a>
             <a href="/staff/create">Add Staff Members</a>
-
           </div>
         </div>
 
@@ -69,8 +69,21 @@
           </div>
 
           <div class="drop-down" drop-down>
+            <a href="/subscription_plan/create">Add Subscriptions</a>
             <a href="/subscription_plans">Subscription Plans</a>
-            <a href="/subscription_plans/create">Add Subscriptions</a>
+            <a href="/assign_subscription_plan">Assign Subscription plan</a>
+          </div>
+        </div>
+
+
+        <div>
+          <div class="link-btn" drop-down-btn>
+            Issue Books
+          </div>
+
+          <div class="drop-down" drop-down>
+            <a href="/issued_books">Issued Books</a>
+            <a href="/issue_book/create">Issue A New Book</a>
           </div>
         </div>
 

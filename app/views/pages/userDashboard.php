@@ -1,32 +1,27 @@
 <?php
 
-
-use Database\Models\AuthorModel;
 use Database\Models\BookModel;
-use Database\Models\CategoryModel;
-use Database\Models\PublisherModel;
-use Database\Models\StaffModel;
+use Database\Models\BorrowBooksModel;
 use Database\Models\SubscriberModel;
+
 require_once __DIR__ . "/../../logic/auth_redirection_user.php";
+require_once(__DIR__ . "/../layout/navbar.php");
 
-
-$subscriber_count = SubscriberModel::count();
-$staff_count = StaffModel::count();
-
-$author_count = AuthorModel::count();
-$category_count = CategoryModel::count();
-$publisher_count = PublisherModel::count();
 $book_count = BookModel::count();
+$issue_book_count = BorrowBooksModel::count($_SESSION["auth_user"]["id"]);
+if(isset($issue_book_count["error"])){
+    print_r($issue_book_count["error"]);
+    die();
+}
+$fine= BorrowBooksModel::calculate_fine($_SESSION["auth_user"]["id"]);
+$subscription_count  =SubscriberModel::subscription_count($_SESSION["auth_user"]["id"]);
+
 ?>
 
-
-
-<?php require_once(__DIR__ . "/../layout/navbar.php"); ?>
 <link rel="stylesheet" href="/public/css/adminDashboard.css">
 <div class="tile-container">
-    <!-- <h1>Staff Dashboard</h1> -->
 
-    <a class="tiles" href="/books">
+    <a class="tiles" href="/subscriber/books">
 
         <div>
             <h1><?php echo $book_count; ?></h1>
@@ -35,45 +30,31 @@ $book_count = BookModel::count();
     </a>
 
 
-    <a class="tiles" href="/staff_members">
-
+    <a class="tiles">
         <div>
-            <h1><?php echo $staff_count; ?></h1>
-            <h2>Staff Members</h2>
+            <h1><?php echo $fine; ?></h1>
+            <h2>Total Fine </h2>
         </div>
     </a>
 
-    <a class="tiles" href="/subscribers">
+    <a class="tiles" href="/subscriber/issued_books">
         <div>
-            <h1><?php echo $subscriber_count; ?></h1>
-            <h2>Subscribers</h2>
+            <h1><?php echo $issue_book_count;?></h1>
+            <h2>Issued Books</h2>
         </div>
     </a>
 
-    <a class="tiles" href="/authors">
+    <a class="tiles" href="/subscriber/subscription_plan">
         <div>
-            <h1><?php echo $author_count; ?></h1>
-            <h2>Authors</h2>
-        </div>
-    </a>
-
-
-    <a class="tiles" href="/categories">
-        <div>
-            <h1><?php echo $category_count; ?></h1>
-            <h2>Categories</h2>
-        </div>
-    </a>
-
-
-    <a class="tiles" href="/publishers">
-        <div>
-            <h1><?php echo $publisher_count; ?></h1>
-            <h2>Publishers</h2>
+            <h1><?php echo $subscription_count;?></h1>
+            <h2>Subscription Plans</h2>
         </div>
     </a>
 
     
+
+
+
 
 </div>
 <script src="https://kit.fontawesome.com/265a92e85a.js" crossorigin="anonymous"></script>

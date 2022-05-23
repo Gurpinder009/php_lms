@@ -1,6 +1,7 @@
 <?php
 
 use Database\Models\SubscriptionPlanModel;
+require_once(__DIR__."/../../logic/auth_redirection_staff.php");
 
 $subscription_plans = SubscriptionPlanModel::all();
 
@@ -14,28 +15,38 @@ require_once(__DIR__ . "/../layout/navbar.php");
 <link rel="stylesheet" href="/public/css/table.css">
 <div class="table-wrapper">
     <h1>Subcription Plans</h1>
-   
+
     <table>
         <thead>
             <tr>
-                <th>S.NO</th>
-                <th>Publisher Name</th>
-                <th>Other Information</th>
-                <th>Update/Delete</th>
-
+                <th>S.No</th>
+                <th>Title</th>
+                <th>price</th>
+                <th>Book issue Limit</th>
+                <th>Issue Days</th>
+                <th>Time period</th>
+                <th>Description</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
             <?php
+
             foreach ($subscription_plans as $subscription_plan) {
+                $subscription_plan["isActive"] = $subscription_plan["isActive"] ? "active":"not active";
                 echo "<tr>";
-                echo '<td data-label="Id">' . $subscription_plan["id"] . '</td>';
-                echo '<td data-label="Name">' . $subscription_plan["title"] . '</td>';
-                echo '<td data-label="Other Information">' . $subscription_plan["price"] . '</td>';
-                echo '<td data-label="Update"><a href="/subscription_plans/1">Edit</a></td>';
+                echo '<td data-label="S no">' . $subscription_plan["id"] . '</td>';
+                echo '<td data-label="Title">' . $subscription_plan["title"] . '</td>';
+                echo '<td data-label="Price">' . $subscription_plan["price"] . '</td>';
+                echo '<td data-label="Book Issue Limit">' . $subscription_plan["book_issue_limit"] . '</td>';
+                echo '<td data-label="Issue Days">' . $subscription_plan["issue_days"] . '</td>';
+                echo '<td data-label="Time Period">' . $subscription_plan["time_period"] . '</td>';
+                echo '<td data-label="Description">' . $subscription_plan["isActive"] . '</td>';
+                echo "<td data-label='Edit'><a href= '/edit/subscription_plan/".$subscription_plan["id"]."'>Edit</a></td>";
 
                 echo "</tr>";
             }
+
             ?>
 
 

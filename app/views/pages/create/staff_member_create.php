@@ -15,7 +15,7 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
       <h1 class="form-heading">Staff Registration</h1>
       <div class="field-container">
         <div class="form-field">
-          <input class="input-field" name="name" placeholder="Name" onblur="validateName(this)" />
+          <input class="input-field" name="name" placeholder="Name" onblur="validateName(this)" value="<?php echo (isset($_POST["name"])?"hello":"" )?>" />
           <small class="error" id="name-error"></small>
         </div>
 
@@ -30,21 +30,26 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
         </div>
 
         <div class="form-field">
-          <input class="input-field" name="salary" placeholder="Salary"  />
+          <input class="input-field" name="salary" placeholder="Salary" onblur="validateNumber(this)" />
           <small class="error" id="salary-error"></small>
         </div>
 
 
         <div class="form-field">
-          <input class="input-field" name="role_id" placeholder="Role"  />
-          <small class="error" id="role-error"></small>
+          <input class="input-field" name="is_admin" placeholder="Role" list="is_admin" onblur="validateNumber(this)" />
+          <datalist id="is_admin">
+            <option value="0">Staff</option>
+            <option value="1">Admin</option>
+            
+          </datalist>
+          <small class="error" id="is_admin-error"></small>
         </div>
 
         <div class="form-field">
           <input
             class="input-field"
             name="dob"
-            onblur="(this.type='text'); validateDateOfBirth(this)"
+            onblur="(this.type='text'); validateDate(this)"
             onfocus="(this.type='date')"
             placeholder="Date of Birth"
         
@@ -106,8 +111,8 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
             onblur = "validatePassword(this)"
           />
 
-          <span id="show-password-toggler" onmousedown="toggle_password_visibility('signPassword')"
-      onmouseup="toggle_password_visibility('signPassword')"><svg
+          <span id="show-password-toggler" 
+      onclick="toggle_password_visibility('signPassword')"><svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-eye-close"
           width="24"
@@ -140,8 +145,7 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
             id="confirm-password"
             onblur="validateConfirmPassword(this)"
           />
-          <span id="show-password-toggler" onmousedown="toggle_password_visibility('confirm-password')"
-      onmouseup="toggle_password_visibility('confirm-password')"
+          <span id="show-password-toggler" onclick="toggle_password_visibility('confirm-password')"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-eye-close"

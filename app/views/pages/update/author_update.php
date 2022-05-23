@@ -1,6 +1,7 @@
 <?php
 
 use Database\Models\AuthorModel;
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
     
     $author_id = explode("/",$_SERVER["REQUEST_URI"])[3];
     $author = AuthorModel::find($author_id);
@@ -32,7 +33,7 @@ use Database\Models\AuthorModel;
         </div>
 
         <button class="btn" type="submit">Update</button>
-        <a class="btn" onclick="confirm('You really want to delete this Author')">Delete</a>
+        <a class="btn" href="/delete/author/<?php echo $author_id; ?>" onclick="return confirm('You really want to delete this Author')">Delete</a>
 
        
       </div>

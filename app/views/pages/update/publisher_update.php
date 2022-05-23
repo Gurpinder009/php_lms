@@ -1,6 +1,7 @@
 <?php
 
 use Database\Models\PublisherModel;
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 
 $publisher_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $publisher = PublisherModel::find($publisher_id);
@@ -34,7 +35,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
                 </div>
 
                 <button class="btn" type="submit">Update</button>
-                <a class="btn" href="">Delete</a>
+                <a class="btn" href="/delete/publisher/<?php echo $publisher_id;?>" onclick="return confirm('Do you really want to delete this Publisher')">Delete</a>
 
             </div>
         </form>

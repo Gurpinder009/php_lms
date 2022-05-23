@@ -99,7 +99,7 @@ a {
   color: #262626;
 }
 
-#navbar > .link-container > div > .link-btn + .drop-down {
+/* #navbar > .link-container > div > .link-btn + .drop-down {
   position: absolute;
   top: 0;
   min-width: max-content;
@@ -113,8 +113,23 @@ a {
   display: grid;
   row-gap: 0.5em;
   justify-items: center;
-}
+} */
 
+.drop-down {
+  position: absolute;
+  top: 0;
+  min-width: max-content;
+  pointer-events: none;
+  transition: all 0.4s ease-in-out;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  padding: 1em 1em;
+  display: grid;
+  row-gap: 0.5em;
+  justify-items: center;
+}
 .active {
   transform: translateY(2.5em) !important;
   width: auto !important;

@@ -7,15 +7,18 @@ class PersonModel{
     
     private function __construct(){}
 
+    //getting all persons
      static function all(){
         try{
             $conn = DatabaseConnection::getInstance();
-            return $conn->query("select * from person")->fetchAll(\PDO::FETCH_ASSOC);
+            return $conn->query("select * from person")->fetchAll();
         }catch(\PDOException $ex){
-            return ["error"=> $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
         }
     }
 
+    //finding particular person
      static function find(int $id){
         $stmt = null;
         try{
@@ -29,18 +32,20 @@ class PersonModel{
                 throw new \PDOException("No Data Available");
             }
         }catch(\PDOException $ex){
-            return ["error"=> $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }    
     }
 
+    //getting last insert id
      static function LastInsertId(){
         try{
             return DatabaseConnection::getInstance()->query("select last_insert_id() from person;")->fetch()['last_insert_id()'];
         }catch(\PDOException $ex){
-            return ["error"=> $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
 
+    //inserting new person data 
      static function insert($data){
         $stmt = null;
         try{
@@ -58,7 +63,37 @@ class PersonModel{
             return $stmt->execute();
 
         }catch(\PDOException $ex){
-            return ["error"=> $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
+        }
+    }
+
+    //update person password
+    static function updatePassword(int $id, $data){
+        $stmt = null;
+        try{
+            $conn = DatabaseConnection::getInstance();
+            $stmt =$conn->prepare("update `person` set `password` = :password where id = :id;");
+            $data["password"] = hash("sha256", $data["password"]);
+            $stmt->bindParam(":password",$data['password']);
+            $stmt->bindParam(":id",$id);
+            return $stmt->execute();
+        }catch(\PDOException $ex){
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+        }
+    }
+
+    //deleting person data 
+    static function delete(){
+        $stmt = null; 
+        try{
+            $stmt= DatabaseConnection::getInstance()
+            ->prepare("DELETE FROM persons WHERE id = :id;");
+            $stmt->bindParam(":id",$id);
+            return $stmt->execute();
+        }catch(\PDOException $ex){
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
         }
     }
 }

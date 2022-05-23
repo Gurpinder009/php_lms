@@ -36,6 +36,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   cursor: pointer;
+  position: relative;
 }
 
 .tiles:hover {
@@ -46,6 +47,19 @@
   text-align: center;
   margin-bottom: 0.2em;
   font-size: 2.8em;
+}
+
+.tile-container > div{
+  position: relative;
+  border:2px solid green;
+  display:flex;
+  align-items: center;
+
+}
+.tile-container > div > .drop-down{
+  position: absolute;
+  bottom:0 !important;
+  height: min-content;
 }
 
 .tiles > div > h2 {

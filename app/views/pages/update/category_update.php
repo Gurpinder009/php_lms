@@ -1,6 +1,7 @@
 <?php
 
 use Database\Models\CategoryModel;
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 
 $category_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $category = CategoryModel::find($category_id);
@@ -34,7 +35,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
                 </div>
 
                 <button class="btn" type="submit">Update</button>
-                <a class="btn" href="/404">Delete</a>
+                <a class="btn" href="/delete/category/<?php echo $category_id;?>" onclick="return confirm('Do you really want to delete this category')" >Delete</a>
 
             </div>
         </form>

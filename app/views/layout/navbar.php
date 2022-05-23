@@ -26,7 +26,10 @@
         <line x1="4" y1="18" x2="20" y2="18" />
       </svg>
 
+       
+      <!-- Checking whether the Logged in person is staff or subscriber -->
       <?php
+
       if (!isset($_SESSION)) {
         session_start();
       }
@@ -34,7 +37,7 @@
       if ($_SESSION["isStaff"] === true) {
         require_once __DIR__ . "/navStaff.php";
       } else {
-        require_once __DIR__ . "/navUser.php";
+        require_once __DIR__ . "/navSubscriber.php";
       }
       ?>
 

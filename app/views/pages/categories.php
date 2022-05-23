@@ -34,7 +34,7 @@ require_once __DIR__ . "/../layout/navbar.php";
                 echo "<tr>";
                 echo '<td data-label="Id">' . $category["id"] . '</td>';
                 echo '<td data-label="Category Name">' . $category["name"] . '</td>';
-                echo '<td data-label="Description" type="desc">' . $category["contact_info"] . '</td>';
+                echo '<td data-label="Description" type="desc">' . $category["desc"] . '</td>';
                 echo '<td data-label="Update"><a href="/edit/category/'.$category["id"].'">Edit</a></td>';
                 echo "</tr>";
             }

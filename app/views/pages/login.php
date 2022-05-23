@@ -25,7 +25,7 @@
       </div>
       <div class="form-field">
         <label class="field-label" for="u_email">Email Address</label>
-        <input class="input-field" type="email" name="email" onblur="validateEmail(this)"  />
+        <input class="input-field" type="email" name="email" onblur="validateEmail(this)" />
         <small class="error" id="email-error"></small>
       </div>
       <div class="form-field">
@@ -38,9 +38,9 @@
           </svg></span>
         <small id="password-error" class="error"> </small>
       </div>
-      <div class="form-field">
-        <input type="checkbox" name="remember_user" id="remember_user" />
-        <label for="remember_user" class="field-label">Stay signed in</label>
+      <div style="display:flex;justify-content:space-between">
+        <span>Any Trouble?</span>
+        <a href="/staff/forget-password">Forget password</a>
       </div>
 
       <button class="btn">Sign in</button>

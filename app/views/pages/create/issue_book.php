@@ -1,33 +1,73 @@
 <?php
 
-use Database\Models\BorrowBooksModel;
+use Database\Models\BookModel;
+use Database\Models\SubscriberModel;
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 
 require_once(__DIR__ . "/../../layout/navbar.php");
-$records = BorrowBooksModel::all();
+$subscribers = SubscriberModel::all();
+if (isset($subscribers["error"])) {
+    print_r($subscribers["error"]);
+    die();
+}
+
+$books = BookModel::all();
+
+if (isset($books["error"])) {
+    print_r($books["error"]);
+    die();
+}
 ?>
-<link rel="stylesheet" href="/public/css/table.css">
 
-<div class="table-wrapper">
-    <div>
-        <h1>Issued Books</h1>
+<link rel="stylesheet" href="../../../../public/css/forms.css">
 
-        <table>
-            <thead>
-                <th>ID</th>
-                <th>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($records as $record) {
-                    echo "<tr>";
-                    echo '<td data-label="Accession Number">' . $record["id"] . '</td>';
+<div class="registration-form-container">
+    <div class="wrapper">
+        <hr />
+        <form class="registration-form" id="small-form" action="/issue_book" method="POST" onsubmit="return validateBookForm(this)" autocomplete="off">
+            <h1 class="form-heading">Issue Book</h1>
+            <div class="field-container" id="small-form-field-container">
+                <div class="form-field">
+                    <input class="input-field" name="access_no" onblur="validateNumber(this)" placeholder="Accession Number" list="accession_no" />
 
-                    echo "</tr>";
-                }
-                ?>
+                    <datalist id="accession_no">
 
-            </tbody>
-        </table>
+                        <?php
+                        foreach ($books as $book) {
+                            echo "<option value='" . $book["accession_no"] . "'>" . $book["title"] . "</option>";
+                        }
+                        ?>
+
+
+                    </datalist>
+                    <small class="error" id="access_no-error"></small>
+                </div>
+
+                <div class="form-field">
+                    <input class="input-field" name="subscriber_id" type="text" onblur="validateNumber(this)" placeholder="Subscriber Name" list="subscibers" />
+                    <small class="error" id="subscriber-error"></small>
+                    <datalist id="subscibers">
+                    <?php
+                        foreach ($subscribers as $subscriber) {
+                            echo "<option value='" . $subscriber["id"] . "'>" . $subscriber["name"] . "</option>";
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
+
+
+                <div class="form-field">
+                    <input class="input-field" name="issue_date" onblur="(this.type='text'); validateDateOfBirth(this)" onfocus="(this.type='date')" placeholder="Issue Date (Default today)" />
+                    <small class="error" id="issue_date-error"></small>
+                </div>
+
+
+
+                <button class="btn" type="submit">Issue Book</button>
+            </div>
+        </form>
+        <hr />
     </div>
 </div>
 

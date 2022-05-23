@@ -8,6 +8,8 @@ use Database\DatabaseConnection;
 
 class AuthorModel implements ModelInterface
 {
+
+    //getting all authors
     static function all()
     {
         try {
@@ -15,10 +17,12 @@ class AuthorModel implements ModelInterface
             $result = $conn->query("select * from authors;");
             return $result->fetchAll();
         } catch (\PDOException $ex) {
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+        
         }
     }
 
+    //finding particular author
     static function find($id)
     {
         $stmt = null;
@@ -34,11 +38,14 @@ class AuthorModel implements ModelInterface
                 throw new \PDOException("No data is available");
             }
         } catch (\PDOException $ex) {
-            echo ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+            
         } finally {
             unset($stmt);
         }
     }
+
+    //adding new author information
     static function insert($data)
     {
         $stmt = null;
@@ -49,11 +56,13 @@ class AuthorModel implements ModelInterface
             $stmt->bindParam(":info", $data['contact_info']);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
         }
     }
+
+    //finding author id from name
     static function findByName($name)
     {
         $stmt = null;
@@ -69,24 +78,30 @@ class AuthorModel implements ModelInterface
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+            
         } finally {
             unset($stmt);
         }
     }
 
+
+    //deleting author information
     static function delete(int $id)
     {
         $stmt = null; 
         try{
             $stmt= DatabaseConnection::getInstance()
-            ->prepare("delete from authors where id = :id;");
+            ->prepare("DELETE FROM authors WHERE id = :id;");
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
-            return ["error",$ex->getMessage];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+            
         }
     }
+
+    // updating author information
     static function update($id, $data)
     {
         $stmt = null;
@@ -98,11 +113,15 @@ class AuthorModel implements ModelInterface
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            return ["error",$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+            
         } finally {
             unset($stmt);
         }
     }
+
+
+    //counting authors 
     static function count()
     {
         try {
@@ -110,7 +129,8 @@ class AuthorModel implements ModelInterface
                 ->query("select count(*) as author_count from authors")->fetch();
             return $result["author_count"];
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+            
         }
     }
 }

@@ -7,16 +7,19 @@ use Database\DatabaseConnection;
     class PublisherModel {
         private function __construct(){}
 
+
+        //getting all publisher data 
          static function all(){
             try{
                 $conn =DatabaseConnection::getInstance();
                 return $conn->query("select * from publishers;")->fetchAll();
 
             }catch(\PDOException $ex){
-                return ["error"=>$ex->getMessage()];
+                return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
             }
         }
 
+        //inserting new publisher
          static function insert($data){
             $stmt = null;
             try{
@@ -26,7 +29,7 @@ use Database\DatabaseConnection;
                 $stmt->bindParam(":info",$data["contact_info"]);
                 return $stmt->execute();
             }catch(\PDOException $ex){
-                return ["error"=>$ex->getMessage()];
+                return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
 
             }finally{
                 unset($stmt);
@@ -34,7 +37,7 @@ use Database\DatabaseConnection;
 
         }
 
-
+        //updating publisher data
         static function update($id,$data){
             $stmt = null;
             try{
@@ -45,14 +48,14 @@ use Database\DatabaseConnection;
                 $stmt->bindParam(":id",$id);
                 return $stmt->execute();
             }catch(\PDOException $ex){
-                return ["error"=>$ex->getMessage()];
+                return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
             }finally{
                 unset($stmt);
             }
 
         }
 
-
+        //finding publisher by name
          static function findByName($name){
             $stmt = null;
             try{
@@ -67,14 +70,15 @@ use Database\DatabaseConnection;
                     throw new \PDOException("No data found");
                 }
             }catch(\PDOException $ex){
-                return ["error"=>$ex->getMessage()];
+                return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
             }finally{
                 unset($stmt);
             }
         }
 
         
-
+        //finding a particular publisher
          static function find(int $id){
             $stmt = null;
             try{
@@ -95,13 +99,27 @@ use Database\DatabaseConnection;
             }
         }
 
+        //counting total number of publishers
          static function count(){
             try{
                 $result =DatabaseConnection::getInstance()
                 ->query("select count(*) as publishers_count from publishers")->fetch(\PDO::FETCH_ASSOC);
                 return $result["publishers_count"]; 
             }catch(\PDOException $ex){
-                return ["error"=>$ex->getMessage()];
+                return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+            }
+        }
+
+        //delete publisher data
+        static function delete(int $id){
+            $stmt = null; 
+            try{
+                $stmt= DatabaseConnection::getInstance()
+                ->prepare("DELETE FROM publishers WHERE id = :id;");
+                $stmt->bindParam(":id",$id);
+                return $stmt->execute();
+            }catch(\PDOException $ex){
+                return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
             }
         }
     }

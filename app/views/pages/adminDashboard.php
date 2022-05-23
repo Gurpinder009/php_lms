@@ -3,6 +3,7 @@
 
 use Database\Models\AuthorModel;
 use Database\Models\BookModel;
+use Database\Models\BorrowBooksModel;
 use Database\Models\CategoryModel;
 use Database\Models\PublisherModel;
 use Database\Models\StaffModel;
@@ -14,12 +15,13 @@ require_once __DIR__ . "/../../logic/auth_redirection_staff.php";
 
 $subscriber_count = SubscriberModel::count();
 $staff_count = StaffModel::count();
-
+$issued_book_count = BorrowBooksModel::CountAll();
 $author_count = AuthorModel::count();
 $category_count = CategoryModel::count();
 $publisher_count = PublisherModel::count();
 $book_count = BookModel::count();
 $subscription_plans_count = SubscriptionPlanModel::count();
+$total_fine = BorrowBooksModel::calculate_total_fine();
 ?>
 
 
@@ -83,10 +85,17 @@ $subscription_plans_count = SubscriptionPlanModel::count();
         </div>
     </a>
 
-    <a class="tiles" href="/issue_book">
+    <a class="tiles" href="/issued_books">
         <div>
-            <h1><?php echo "9" ?></h1>
+            <h1><?php echo $issued_book_count; ?></h1>
             <h2>Issued Books</h2>
+        </div>
+    </a>
+
+    <a class="tiles" style="pointer-events:none;">
+        <div>
+            <h1><?php echo $total_fine; ?></h1>
+            <h2>Total Fine</h2>
         </div>
     </a>
 

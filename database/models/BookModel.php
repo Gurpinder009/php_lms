@@ -9,6 +9,7 @@ class BookModel
 
     private function __construct(){}
 
+    //getting all boook data
     static function all()
     {
         try {
@@ -17,11 +18,11 @@ class BookModel
                 (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id;"
             )->fetchAll();
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
   
-
+    //getting particular book
     static function find(int $id)
     {
         $stmt = null;
@@ -36,25 +37,31 @@ class BookModel
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
         }
     }
 
+
+    //search for books
     static function search($data){
+        $stmt = null;
         try {
-            return DatabaseConnection::getInstance()->query(
+            $stmt =  DatabaseConnection::getInstance()->prepare(
                 "select b.*,a.name as author_name,c.name as category_name,p.name as publisher_name from  
-                (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id where title like '%".$data."%';"
-            )->fetchAll();
+                (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id where title like :data;");
+            $stmt->bindValue(":data","%".$data."%");
+            if($stmt->execute()){
+                return $stmt->fetchAll();
+            }
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
-        
     }
 
 
+    //updating book data 
     static function update(int $id, $data)
     {
         $stmt = null;
@@ -73,19 +80,29 @@ class BookModel
             $stmt->bindParam(":language", $data["language"]);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
         }
     }
 
-    
+    //deteting book data 
     static function delete()
     {
+        $stmt = null; 
+        try{
+            $stmt= DatabaseConnection::getInstance()
+            ->prepare("DELETE FROM books WHERE id = :id;");
+            $stmt->bindParam(":id",$id);
+            return $stmt->execute();
+        }catch(\PDOException $ex){
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
 
-        
+        }  
     }
 
+
+    //getting book count
     static function count()
     {
         try {
@@ -93,10 +110,12 @@ class BookModel
                 ->query("select count(*) as book_count from books")->fetch();
             return $result["book_count"];
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
 
+
+    //inserting new book
     static function insert($data)
     {
         $stmt = null;
@@ -115,7 +134,7 @@ class BookModel
             $stmt->bindParam(":language", $data["language"]);
             return $stmt->execute();
         } catch (\PDOException $ex) {
-            return ["error" => $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
         }

@@ -67,7 +67,6 @@
     padding: 0 0.8em;
     margin-top: 4px;
     border: 1.5px solid #252525;
-text-transform: capitalize;
   }
 
 
@@ -233,12 +232,6 @@ text-transform: capitalize;
     text-transform: capitalize !important;
   }
 
-  .input-field[type="email"]{
-    text-transform: lowercase !important;
-  }
-  .input-field[type="password"]{
-    text-transform: lowercase !important;
-  }
 
   
 

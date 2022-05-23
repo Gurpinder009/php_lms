@@ -52,8 +52,8 @@ require_once __DIR__ . "/../../layout/navbar.php"; ?>
         </div>
 
         <div class="form-field">
-          <input class="input-field" name="year_of_publication"   onblur="(this.type='text'); validateDateOfBirth(this)"
-            onfocus="(this.type='date')" placeholder="Year of publication" />
+          <input class="input-field" name="year_of_publication"   onblur="(this.type='text'); validateDate(this)"
+            onfocus="(this.type='date')"  placeholder="Year of publication" />
           <small class="error" id="year_of_publication-error"></small>
         </div>
      

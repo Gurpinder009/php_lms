@@ -7,13 +7,8 @@ function menu() {
   }
 }
 
-
-
-
-
-
 function toggle_password_visibility(signPassword) {
-  console.log("working")
+  console.log("working");
   let x = document.getElementById(signPassword);
   x.getAttribute("type") === "password"
     ? x.setAttribute("type", "text")
@@ -36,6 +31,19 @@ function verified(e) {
   x.style.color = "green";
   e.style.border = "1.5px solid 	rgba(0,255,0,0.6)";
 }
+
+function validateDate(e){
+  e.value = e.value.trim();
+  if(e.value != ""){
+    verified(e);
+    return true;
+  }
+  else{
+    unverified(e,"Valid date is required");
+    return false;
+  }
+}
+
 
 function validateName(e) {
   e.value = e.value.trim();
@@ -63,14 +71,13 @@ function validateEmail(e) {
   }
 }
 
-function validateNumber(e){
+function validateNumber(e) {
   e.value = e.value.trim();
-  let NumberPattern = /^[0-9]{1,3}$/;
-  if(NumberPattern.test(e.value)===false){
-    unverified(e,"Only Number are allowed");
+  let NumberPattern = /^[0-9]+$/;
+  if (NumberPattern.test(e.value) === false) {
+    unverified(e, "Only Number are allowed");
     return false;
-  }
-  else{
+  } else {
     verified(e);
     return true;
   }
@@ -91,14 +98,7 @@ function validatePhoneNum(e) {
   }
 }
 
-function validateDateOfBirth(e) {
-  e.value = e.value.trim();
-  if (e.value == "") {
-    return false;
-  } else {
-    return true;
-  }
-}
+
 
 function validatePinCode(e) {
   e.value = e.value.trim();
@@ -168,26 +168,29 @@ function validateULForm(e) {
   return validateEmail(e["email"]) && validatePassword(e["password"]);
 }
 
-
-function validateBookForm(e){
-  return validateName(e['title']) && validateNumber(e['no_of_copies']) && validateCondtion(e['condition']) && validateNumber(e['edition']) && validateName(e['language'])
+function validateBookForm(e) {
+  return (
+    validateName(e["title"]) &&
+    validateNumber(e["no_of_copies"]) &&
+    validateCondtion(e["condition"]) &&
+    validateNumber(e["edition"]) &&
+    validateName(e["language"])
+  );
 }
 
-
-function validateCondtion(e){
+function validateCondtion(e) {
   e.value = e.value.trim();
-  let conditionPattern = /(bad|good|best)/ 
-  if(conditionPattern.test(e.value) ===false){
-    unverified(e,"Invalidate Condtion");
+  let conditionPattern = /(bad|good|best)/;
+  if (conditionPattern.test(e.value) === false) {
+    unverified(e, "Invalidate Condtion");
     return false;
-  }
-  else{
+  } else {
     verified(e);
     return true;
   }
 }
 
-function validateTitle(e){
+function validateTitle(e) {
   e.value = e.value.trim();
   let NamePattern = /^[a-z '_]+$/i;
   if (NamePattern.test(e.value) === false) {
@@ -200,81 +203,99 @@ function validateTitle(e){
     verified(e);
     return true;
   }
-
 }
 
-
-function validateAuthorForm(e){
-  return validateName(e['name']);
+function validateAuthorForm(e) {
+  return validateName(e["name"]);
 }
 
-function validateCategoryForm(e){
-  return validateTitle(e['title']);
+function validateCategoryForm(e) {
+  return validateTitle(e["title"]);
 }
 
-function validatePublisherForm(e){
-  return validateTitle(e['name']);
+function validatePublisherForm(e) {
+  return validateTitle(e["name"]);
 }
 
-
-document.addEventListener("click",(e)=>{
+document.addEventListener("click", (e) => {
   let dropDown = e.target.matches("[drop-down]");
-  let dropDownBtn = e.target.matches("[drop-down-btn]")
-  if(!dropDown && !dropDownBtn ){
+  let dropDownBtn = e.target.matches("[drop-down-btn]");
+  if (!dropDown && !dropDownBtn) {
     closeAll();
-  }else if(!dropDown && dropDownBtn) {
+    console.log("click 1");
+  } else if (!dropDown && dropDownBtn) {
     closeAll();
     e.target.nextElementSibling.classList.toggle("active");
-    
-  }
-  else return;
-
+  } else return;
 });
 
-
-
-function closeAll(){
+function closeAll() {
   x = document.querySelectorAll("[drop-down]");
-    x.forEach(el=> {
-      el.classList.remove("active");
-    });
+  x.forEach((el) => {
+    el.classList.remove("active");
+  });
 }
 
-function closeAlert(e){
+function closeAlert(e) {
   e.style.display = "none";
 }
 
-
 function searchBooks(e) {
-
-
-
   axios
-    .get(`/search-books?title=${e.value}`)
+    .get(`/search-books?title=${e["search_box"].value}`)
     .then((res) => {
-      console.log(res.data);
       document.getElementById("element").innerHTML = "";
       res.data.map((values) => {
-        document.getElementById(
-          "element"
-        ).innerHTML += `<tr>
+        document.getElementById("element").innerHTML += documentWrite(values);
+      });
+    })
+    .catch((error) => error);
+}
+
+function documentWrite(values) {
+  return `<tr>
         <td data-label="Accession Number">${values.accession_no}</td>
         <td data-label="Title">${values.title}</td>
         <td data-label="Publisher">${values.publisher_name}</td>
-        <td data-label="language">${values.accession_no}</td>
-        <td data-label="page_count">${values.accession_no}</td>
-        <td data-label="year_of_publication">${values.accession_no}</td>
-        <td data-label="condition">${values.accession_no}</td>
-        <td data-label="author">${values.accession_no}</td>
-        <td data-label="categories">${values.accession_no}</td>
-        <td data-label="Update"><a href="/edit/book/">Edit</a></td>
-        </tr>`
+        <td data-label="language">${values.language}</td>
+        <td data-label="page_count">${values.page_count}</td>
+        <td data-label="year_of_publication">${values.year_of_publication}</td>
+        <td data-label="condition">${values.condition}</td>
+        <td data-label="author">${values.author_name}</td>
+        <td data-label="categories">${values.category_name}</td>
+        <td data-label="Edit"><a href="/edit/book/${values.accession_no}">Edit</a></td>
+        
+        </tr>`;
+}
+
+function SearchBooks(e) {
+  axios
+    .get(`/search-books?title=${e["search_box"].value}`)
+    .then((res) => {
+      document.getElementById("element").innerHTML = "";
+      res.data.map((values) => {
+        document.getElementById("element").innerHTML += documentWriteSubscriber(values);
       });
     })
     .catch((error) => error);
 }
 
 
-function test(){
+function documentWriteSubscriber(values) {
+  return `<tr>
+        <td data-label="Accession Number">${values.accession_no}</td>
+        <td data-label="Title">${values.title}</td>
+        <td data-label="Publisher">${values.publisher_name}</td>
+        <td data-label="language">${values.language}</td>
+        <td data-label="page_count">${values.page_count}</td>
+        <td data-label="year_of_publication">${values.year_of_publication}</td>
+        <td data-label="condition">${values.condition}</td>
+        <td data-label="author">${values.author_name}</td>
+        <td data-label="categories">${values.category_name}</td>
+        
+        </tr>`;
+}
+
+function test() {
   console.log("working");
 }

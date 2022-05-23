@@ -4,6 +4,7 @@ use Database\Models\AuthorModel;
 use Database\Models\BookModel;
 use Database\Models\CategoryModel;
 use Database\Models\PublisherModel;
+require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 
 
 $authors = AuthorModel::all();

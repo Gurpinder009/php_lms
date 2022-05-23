@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Database;
 
-use Dotenv\Dotenv as DotEnv;
 
+//getting the information from .env file 
+use Dotenv\Dotenv as DotEnv;
 $dotenv = DotEnv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
@@ -32,8 +33,5 @@ class DatabaseConnection
         return self::$conn;
     }
 
-    // for testing purposes
-    public static function test(){
-        echo "Test Successful";
-    }
+
 }

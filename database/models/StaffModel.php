@@ -4,7 +4,7 @@ namespace Database\Models;
 use Database\DatabaseConnection;
 
 //Model class for interacting with database
-//corresponding to user_table
+//corresponding to staff_members
 class StaffModel 
 {
 
@@ -12,7 +12,7 @@ class StaffModel
     private function __construct()
     {}
 
-    //inserting a new User
+    //inserting a new staff member
      static function insert($data)
     {
         $stmt = null;
@@ -25,9 +25,9 @@ class StaffModel
 
             if(!isset($result["error"])){
                 $id = PersonModel::LastInsertId();
-                $stmt = $conn->prepare("insert into staff_members(salary,role_id,person_id) values(:salary,:role,:person_id);");
+                $stmt = $conn->prepare("insert into staff_members(salary,is_admin,person_id) values(:salary,:role,:person_id);");
                 $stmt->bindParam(":salary", $data["salary"]);
-                $stmt->bindParam(":role", $data["role"]);
+                $stmt->bindParam(":role", $data["is_admin"]);
                 $stmt->bindParam(":person_id", $id);
                 if($stmt->execute()){
                     $result = $conn->commit();
@@ -35,30 +35,31 @@ class StaffModel
                 }
                 throw new \PDOException("Operation Failed");
             }
-            throw new \PDOException($result["error"]);
+            return $result;
         } catch (\PDOException $ex) {
             if(!$conn){
                 $conn->rollBack();
             }
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
 
             unset($stmt);
         }
     }
 
-    //retrieving whole user rows
+    //retrieving whole staff rows
      static function all()
     {
         try {
             $conn = DatabaseConnection::getInstance();
             return $conn->query("select * from person p inner join staff_members s on p.id = s.person_id;")->fetchAll();
         } catch (\PDOException $ex) {
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
         }
     }
 
-    //finding a particular row in user table
+    //finding a particular row in staff table
      static function find(int $id)
     {
         $stmt = null;
@@ -74,51 +75,55 @@ class StaffModel
             }
             throw new \PDOException("No data Found");
         } catch (\PDOException$ex) {
-            return ["error"=> $ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
         } finally {
             unset($stmt);
         }
     }
 
-    //deleting a particular row from users table
+    //deleting a particular row from staff table
      static function delete(int $id)
     {
         $stmt = null;
         try {
             $conn = DatabaseConnection::getInstance();
-            $stmt = $conn->prepare("delete from staff_members where id = :id");
+            $stmt = $conn->prepare("DELETE FROM staff_members WHERE id = :id");
             $stmt->bindParam(":id", $id);
             return $stmt->execute();
         } catch (\PDOException$ex) {
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
         } finally {
             unset($stmt);
         }
     }
 
-    //updating user data
-    //  static function update($id, $data)
-    // {
-    //     $stmt = null;
-    //     try {
-    //         $conn = DatabaseConnection::getInstance();
-    //         $stmt = $conn->prepare("update users set name=:name,email=:email,phone_num=:phoneNum,password=:password,role_id =:roleId where user_id = :id;");
-    //         $stmt->bindParam(":name", $data->name);
-    //         $stmt->bindParam(":email", $data->email);
-    //         $stmt->bindParam(":phoneNum", $data->phoneNum);
-    //         $stmt->bindParam(":password", $data->password);
-    //         $stmt->bindParam(":roleId", $data->roleId);
-    //         $stmt->bindParam(":id", $id);
-    //         $data->password = hash("sha256", $data->password);
-    //         return $stmt->execute();
-    //     } catch (\PDOException$ex) {
-    //         return $ex->getMessage();
-    //     } finally {
-    //         unset($stmt);
-    //     }
-    // }
+    
+    //getting person id 
+    static function getPersonId(int $id)
+    {
+        $stmt = null;
+        try {
+            $conn = DatabaseConnection::getInstance();
+            $stmt = $conn->prepare("select * FROM staff_members WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+            if ($stmt->execute()) {
+                $result = $stmt->fetch();
+                if($result["person_id"]){
+                    return $result["person_id"];
+                }
+                throw new \PDOException("No data available");
+            }
+        } catch (\PDOException $ex) {
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+        } finally {
+            unset($stmt);
+        }
+    }
 
-    //finding particular user using its email
+
+    //finding particular staff member using its email
      static function findUsingEmail(String $email)
     {
         $stmt = null;
@@ -134,7 +139,8 @@ class StaffModel
                 throw new \PDOException("No data found");
             }
         } catch (\PDOException$ex) {
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+
         } finally {
             unset($stmt);
         }
@@ -173,15 +179,18 @@ class StaffModel
 
     }
 
-    // for testing purposes
+    // counting all staff members
      static function count(){
         try{
             $result =DatabaseConnection::getInstance()
             ->query("select count(*) as staff_member_count from staff_members;")->fetch();
             return $result["staff_member_count"]; 
         }catch(\PDOException $ex){
-            return ["error"=>$ex->getMessage()];
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
+
+
+   
 
 }

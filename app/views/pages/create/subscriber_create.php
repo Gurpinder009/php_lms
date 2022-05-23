@@ -33,7 +33,7 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
           <input
             class="input-field"
             name="dob"
-            onblur="(this.type='text'); validateDateOfBirth(this)"
+            onblur="(this.type='text'); validateDate(this)"
             onfocus="(this.type='date')"
             placeholder="Date of Birth"
         
@@ -95,8 +95,8 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
             onblur = "validatePassword(this)"
           />
 
-          <span id="show-password-toggler" onmousedown="toggle_password_visibility('signPassword')"
-      onmouseup="toggle_password_visibility('signPassword')"><svg
+          <span id="show-password-toggler" onclick="toggle_password_visibility('signPassword')"
+     ><svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-eye-close"
           width="24"
@@ -129,8 +129,8 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
             id="confirm-password"
             onblur="validateConfirmPassword(this)"
           />
-          <span id="show-password-toggler" onmousedown="toggle_password_visibility('confirm-password')"
-      onmouseup="toggle_password_visibility('confirm-password')"
+          <span id="show-password-toggler" onclick="toggle_password_visibility('confirm-password')"
+   
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-eye-close"

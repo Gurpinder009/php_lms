@@ -1,5 +1,6 @@
 <?php
 
+require_once(__DIR__."/../auth_redirection_staff.php");
 use Database\Models\AuthorModel;
 use Database\Models\BookModel;
 use Database\Models\CategoryModel;
