@@ -7,9 +7,7 @@ require(__DIR__."/../../logic/auth_redirection_user.php");
 $subscription_plans = SubscriberModel::subscription($_SESSION["auth_user"]["id"]);
 
 if (isset($subscription_plans["error"])) {
-    // header("Location: http://" . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . "/_404");
-    print_r($subscription_plans["error"]);
-    die();
+    redirect("404",$subscription_plans["error"]);
 }
 
 if(!isset($subscription_plans[0]["id"])){

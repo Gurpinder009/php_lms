@@ -6,8 +6,7 @@ require_once __DIR__ . "/../../logic/auth_redirection_staff.php";
 
 $publishers = PublisherModel::all();
 if (isset($publishers['error'])) {
-    header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/404");
-    die();
+    redirect("404");
 }
 
 require_once __DIR__ . "/../layout/navbar.php";

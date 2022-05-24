@@ -9,18 +9,14 @@ use Database\Models\StaffModel;
             $result = StaffModel::getPersonId($result["id"]);
             $result  = PersonModel::updatePassword($result,$_POST);
             if(!isset($result["error"])){
-                echo "<h1>Password Changed</h1>Goto login page <a href='/login'>login page</a>";
-                die(); 
+                redirect("404","Password Changed"); 
             }
             else{
-                echo "<h1>Operation Failed </h1>Goto login page <a href='/login'>login page</a>";
-                die();
+                redirect("404","Operation");  
             }
         }
         else{
-            echo "<h1>Not matching data found</h1>Goto login page <a href='/login'>login page</a>";
-
-            die();
+            redirect("404","Not matching data found");
         }        
     }
 ?>

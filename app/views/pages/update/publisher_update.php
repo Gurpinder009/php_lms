@@ -6,7 +6,7 @@ require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 $publisher_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $publisher = PublisherModel::find($publisher_id);
 if (isset($publisher["error"])) {
-    print_r($publisher["error"]);
+    redirect("404",$publisher["error"]);
 }
 $title = "Update Publisher";
 require_once(__DIR__ . "/../../layout/navbar.php");

@@ -3,6 +3,7 @@
 namespace Database\Models;
 
 use Database\DatabaseConnection;
+use PDOException;
 
 //Model class for interacting with database
 //corresponding to Subsscriber
@@ -285,4 +286,7 @@ class SubscriberModel
             unset($stmt);
         }
     }
+
+
+
 }

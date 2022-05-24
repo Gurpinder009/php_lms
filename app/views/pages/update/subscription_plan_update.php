@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
 $subscription_plan_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $subscription_plan = SubscriptionPlanModel::find($subscription_plan_id);
 if (isset($subscription_plan["error"])) {
-    print_r($subscription_plan["error"]);
+    redirect("404",$subscription_plan["error"]);
 }
 
 $title = "Edit Subscription_plan";

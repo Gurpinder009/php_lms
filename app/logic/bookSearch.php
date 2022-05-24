@@ -16,6 +16,5 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"]==true){
     
 }
 else{
-    header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/login");
-    die(); 
+    redirect("login");
 }

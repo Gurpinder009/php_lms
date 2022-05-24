@@ -3,7 +3,7 @@
 require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 
 
-$title = "Add User";
+$title = "Add Staff Member";
 
 require_once __DIR__ . "/../../layout/navbar.php";?>
 <link rel="stylesheet" href="../../../../public/css/forms.css">

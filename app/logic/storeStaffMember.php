@@ -6,9 +6,8 @@ require_once(__DIR__."/auth_redirection_staff.php");
 
 $result = StaffModel::insert($_POST);
 if(!isset($result["error"])){
-    header("Location: http://" . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . "/staff_members");
-    die();
+    redirect("staff_members");
 }
 else{
-    print_r($result["error"]);
+    redirect("404",$result["error"]);
 }

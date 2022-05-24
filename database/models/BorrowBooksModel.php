@@ -15,7 +15,7 @@ class BorrowBooksModel
     {
         try {
             $result = DatabaseConnection::getInstance()
-                ->query("select bb.*, b.title, b.accession_no,p.name from borrow_books bb inner join books b on b.accession_no = bb.book_id inner join subscribers s on s.id = bb.subscriber_id inner join person p on p.id = s.person_id where `return date` is null ;")
+                ->query("select if( datediff(now(),bb.expected_return_date) > 0,datediff(now(),bb.expected_return_date)*10, 0)  as fine,bb.*, b.title, b.accession_no,p.name from borrow_books bb inner join books b on b.accession_no = bb.book_id inner join subscribers s on s.id = bb.subscriber_id inner join person p on p.id = s.person_id where `return date` is null ;")
                 ->fetchAll();
             return $result;
         } catch (\PDOException $ex) {
@@ -82,6 +82,8 @@ class BorrowBooksModel
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
+            unset($expected_date);
+
         }
     }
 
@@ -136,13 +138,13 @@ class BorrowBooksModel
         }
     }
 
-//finding particular book
+//finding particular borrowed book
     static function find($id)
     {
         $stmt = null;
         try {
             $stmt = DatabaseConnection::getInstance()
-                ->prepare("select bb.*, b.title, b.accession_no,p.name from borrow_books bb inner join books b on b.accession_no = bb.book_id inner join subscribers s on s.id = bb.subscriber_id inner join person p on p.id = s.person_id where `return date` is null and s.id = :id;");
+                ->prepare("select if( datediff(now(),bb.expected_return_date) > 0,datediff(now(),bb.expected_return_date)*10, 0)  as fine,bb.*, b.title, b.accession_no,p.name from borrow_books bb inner join books b on b.accession_no = bb.book_id inner join subscribers s on s.id = bb.subscriber_id inner join person p on p.id = s.person_id where `return date` is null and s.id = :id;");
             $stmt->bindParam(":id", $id);
             if ($stmt->execute()) {
                 $result = $stmt->fetchAll();

@@ -6,8 +6,7 @@ require_once __DIR__ . "/../../logic/auth_redirection_staff.php";
 
 $categories = CategoryModel::all();
 if (isset($categories['error'])) {
-    header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/404");
-    die();
+    redirect("404");
 }
 
 $title ="Categories";

@@ -7,11 +7,9 @@ $id = explode("/",$_SERVER["REQUEST_URI"])[2];
 if(isset($id)){
     $result = BorrowBooksModel::return_book($id);
     if(isset($result["error"])){
-        print_r($result["error"]);
-        die();
+        redirect("404",$result["error"]);
     }else{
-        header("Location: http://" . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . "/issued_books");
-        die();
+        redirect("issued_books");
     }
 }
 ?>

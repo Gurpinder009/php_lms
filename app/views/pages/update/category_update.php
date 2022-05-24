@@ -6,7 +6,7 @@ require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
 $category_id = explode("/", $_SERVER["REQUEST_URI"])[3];
 $category = CategoryModel::find($category_id);
 if (isset($category["error"])) {
-    print_r($category["error"]);
+    redirect("404",$category["error"]);
 }
 $title = "Update Category";
 require_once(__DIR__ . "/../../layout/navbar.php");

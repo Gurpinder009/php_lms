@@ -19,7 +19,7 @@ $routes = [
     "/subscriber/login\?error=[a-zA-Z0-9\[\]_ %]+"=>"views/pages/subscriber_login.php",
     "/profile"=>"views/pages/profile_page.php",
     "/loggout"=>"logic/logout.php",
-    "/404" => "views/pages/_404.php",
+    "/404[\?error=[a-zA-Z0-9\[\]_ %]*]*" => "views/pages/_404.php",
     "/books" => "views/pages/books.php",
     "/subscriber/books" => "views/pages/SubscriberBooks.php",
 
@@ -110,8 +110,7 @@ foreach($routes as $route=>$value){
 
 //If required route is not available
 if(!$found){
-    header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/404");
-    die();
+    redirect("404");
 }
 
 

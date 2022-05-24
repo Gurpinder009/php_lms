@@ -15,11 +15,10 @@ $data["category_id"] =CategoryModel::findByName($_POST['category_id']);
 
 $result = BookModel::insert($data);
 if(isset($result["error"])){
-    print_r($result);
+    redirect("books",$result["error"]);
 }
 if($result == 1){
-    header("Location: http://".$_SERVER['SERVER_NAME'].":".$_SERVER["SERVER_PORT"]."/books");
-    die();
+    redirect("books");
 }
 
 

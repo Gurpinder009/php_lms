@@ -6,8 +6,7 @@ require_once(__DIR__."/../../logic/auth_redirection_staff.php");
 $subscription_plans = SubscriptionPlanModel::all();
 
 if (isset($subscription_plans["error"])) {
-    header("Location: http://" . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . "/_404");
-    die();
+    redirect("404",$subscription_plans["error"]);
 }
 require_once(__DIR__ . "/../layout/navbar.php");
 ?>

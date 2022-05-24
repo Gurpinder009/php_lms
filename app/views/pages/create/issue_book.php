@@ -3,19 +3,15 @@
 use Database\Models\BookModel;
 use Database\Models\SubscriberModel;
 require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
-
+$title ="Issue Book";
 require_once(__DIR__ . "/../../layout/navbar.php");
 $subscribers = SubscriberModel::all();
 if (isset($subscribers["error"])) {
-    print_r($subscribers["error"]);
-    die();
+    redirect("404",$subscribers["error"]);
 }
-
 $books = BookModel::all();
-
 if (isset($books["error"])) {
-    print_r($books["error"]);
-    die();
+    redirect("404",$books["error"]);
 }
 ?>
 

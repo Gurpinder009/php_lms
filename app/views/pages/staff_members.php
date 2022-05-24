@@ -6,8 +6,7 @@ require_once __DIR__ . "/../../logic/auth_redirection_staff.php";
 
 $staff_members = StaffModel::all();
 if (isset($staff_members['error'])) {
-    header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/404");
-    die();
+    redirect("404");
 }
 require_once __DIR__ . "/../layout/navbar.php";
 ?>

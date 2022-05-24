@@ -14,7 +14,7 @@ $publishers = PublisherModel::all();
 $accession_no = explode("/", $_SERVER["REQUEST_URI"])[3];
 $book = BookModel::find($accession_no);
 if (isset($book["error"])) {
-    print_r($book["error"]);
+    redirect("404",$book["error"]);
 }
 
 $title = "Update Book";

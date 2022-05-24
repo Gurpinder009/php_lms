@@ -24,7 +24,7 @@ PRIMARY KEY person_pk(`id`)
 CREATE TABLE IF NOT EXISTS `subscription_plans`(
 	`id` INT AUTO_INCREMENT,
     `title` VARCHAR (85),
-	`description` VARCHAR(255),
+	`isActive` ENUM('1','0'),
     `price` INT,
     `book_issue_limit` INT,
     `issue_days` INT,

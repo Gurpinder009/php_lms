@@ -4,11 +4,9 @@ use Database\Models\SubscriberModel;
 require_once __DIR__ . "/../../logic/auth_redirection_staff.php";
 
 
-$users = SubscriberModel::all();
-if (isset($users['error'])) {
-    // header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/404");
-    print_r($users["error"]);
-    die();
+$subscribers = SubscriberModel::all();
+if (isset($subscribers['error'])) {
+    redirect("404",$subscribers["error"]);
 }
 require_once __DIR__ . "/../layout/navbar.php";
 ?>
@@ -34,18 +32,18 @@ require_once __DIR__ . "/../layout/navbar.php";
         </thead>
         <tbody>
             <?php
-            foreach ($users as $user) {
-                if($user["title"] == null){
-                    $user["title"] = "Not Subscribed";
+            foreach ($subscribers as $subscriber) {
+                if($subscriber["title"] == null){
+                    $subscriber["title"] = "Not Subscribed";
                 }
                 echo "<tr>";
-                echo '<td data-label="Id:">' . $user["id"] . '</td>';
-                echo '<td data-label="Name:">' . $user["name"] . '</td>';
-                echo '<td data-label="Subscription:">' . $user["title"] . '</td>';
-                echo '<td data-label="Email Address:">' . $user["email"] . '</td>';
-                echo '<td data-label="Phone Number:">' . $user["phone_num"] . '</td>';
-                echo '<td data-label="Date of Birth:">' . $user["dob"] . '</td>';
-                echo '<td data-label="Address:" type="address">'.$user['city'].", ".$user["state"].", ".$user["country"].", ".$user['pin_code'] . '</td>';
+                echo '<td data-label="Id:">' . $subscriber["id"] . '</td>';
+                echo '<td data-label="Name:">' . $subscriber["name"] . '</td>';
+                echo '<td data-label="Subscription:">' . $subscriber["title"] . '</td>';
+                echo '<td data-label="Email Address:">' . $subscriber["email"] . '</td>';
+                echo '<td data-label="Phone Number:">' . $subscriber["phone_num"] . '</td>';
+                echo '<td data-label="Date of Birth:">' . $subscriber["dob"] . '</td>';
+                echo '<td data-label="Address:" type="address">'.$subscriber['city'].", ".$user["state"].", ".$user["country"].", ".$user['pin_code'] . '</td>';
                 echo "</tr>";
             }
             ?>

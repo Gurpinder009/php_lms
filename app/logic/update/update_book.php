@@ -11,30 +11,26 @@ use Database\Models\PublisherModel;
         $data = $_POST;
         $data["author_id"] = AuthorModel::findByName($_POST["author_id"]);
         if(isset($data["author_id"]["error"])){
-            echo $data["author_id"]["error"];
-            die();
+            redirect("404","publisher_id");
         } 
         $data["publisher_id"] = PublisherModel::findByName($_POST["publisher_id"]);
         if(isset($data["publisher_id"]["error"])){
-            echo $data["publisher_id"]["error"];
-            die();
+            redirect("404",$data["publisher_id"]["error"]);    
         }
 
         $data["category_id"] = CategoryModel::findByName($_POST["category_id"]);
         if(isset($data["category_id"]["error"])){
-            echo $data["category_id"]["error"];
-            die();
+            redirect("404",$data["category_id"]["error"]);    
         }
 
 
         $result = BookModel::update($id,$data);
         if(!isset($result["error"]) && $result == 1){
-            header("Location: http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"]."/books");
-            die();    
+            redirect("books");    
         }
 
-        print_r($result["error"]);
-        die();
+        redirect("404",$result["error"]);
+
 
     
    

@@ -6,7 +6,7 @@ require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
     $author_id = explode("/",$_SERVER["REQUEST_URI"])[3];
     $author = AuthorModel::find($author_id);
     if(isset($author["error"])){    
-        print_r($author["error"]);
+        redirect("404",$author["error"]);
     }
     $title="Edit Author";
     require_once(__DIR__."/../../layout/navbar.php");
