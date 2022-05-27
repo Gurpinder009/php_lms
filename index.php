@@ -19,10 +19,9 @@ $routes = [
     "/subscriber/login\?error=[a-zA-Z0-9\[\]_ %]+"=>"views/pages/subscriber_login.php",
     "/profile"=>"views/pages/profile_page.php",
     "/loggout"=>"logic/logout.php",
-    "/404[\?error=[a-zA-Z0-9\[\]_ %]*]*" => "views/pages/_404.php",
+    "/404[\/\?a-zA-Z0-9\[\]&=_\- %+]*" => "views/pages/_404.php",
     "/books" => "views/pages/books.php",
     "/subscriber/books" => "views/pages/SubscriberBooks.php",
-
     "/authors"=>"views/pages/authors.php",
     "/categories"=>"views/pages/categories.php",
     "/subscribers"=>"views/pages/subscribers.php",
@@ -30,23 +29,23 @@ $routes = [
     "/publishers"=>"views/pages/publishers.php",
     "/staff_members"=>"views/pages/staff_members.php",  
     "/issued_books"=>"views/pages/issued_books.php", 
-
+    
     "/issue_book"=>"logic/issue_book.php",
     "/return_book/[0-9]+"=>"logic/return_book.php",
     
 
     "/subscriber/issued_books"=>"views/pages/issued_books_subscriber.php", 
     "/subscriber/subscription_plan"=>"views/pages/subscriber_subscription.php", 
-
+    
     //forms for updation
     "/edit/author/[0-9]+"=>"views/pages/update/author_update.php",
     "/edit/book/[0-9]+"=>"views/pages/update/book_update.php",
     "/edit/publisher/[0-9]+"=>"views/pages/update/publisher_update.php",
     "/edit/category/[0-9]+"=>"views/pages/update/category_update.php",
     "/edit/subscription_plan/[0-9]+"=>"views/pages/update/subscription_plan_update.php",
-
     
-
+    
+    
     //delete data logic
     "/delete/author/[0-9]+"=>"logic/delete/delete_author.php",
     "/delete/book/[0-9]+"=>"logic/delete/delete_book.php",
@@ -55,8 +54,8 @@ $routes = [
     "/delete/subscriber/[0-9]+"=>"logic/delete/delete_subscriber.php",
     "/delete/staff/[0-9]+"=>"logic/delete/delete_staff.php",
     "/delete/subscription_plans/[0-9]+"=>"logic/delete/delete_subscription_plan.php",
-    "/staff/forget-password"=>"views/pages/staff_forget_password.php",
-    "/subscriber/forget-password"=>"views/pages/subscriber_forget_password.php",
+   
+    "/edit/forget-password"=>"views/pages/forget_password.php",
     
     
     
@@ -73,7 +72,7 @@ $routes = [
     "/subscription_plan/create" => "views/pages/create/subscription_plan_create.php",
     "/assign_subscription_plan" =>"views/pages/create/provide_subscription_plan.php",
     "/provideSubscription" =>"logic/provideSubscription.php",
-
+    
     //for storing form data
     "/category/store" => "logic/storeCategory.php",
     "/author/store" => "logic/storeAuthor.php",
@@ -82,7 +81,7 @@ $routes = [
     "/book/store" => "logic/storeBook.php",
     "/publisher/store" => "logic/storePublisher.php",
     "/subscription/store"=>"logic/storeSubscriptionPlan.php",
-
+    
     //updating user data 
     "/update/author/[0-9]+"=>"logic/update/update_author.php",
     "/update/category/[0-9]+"=>"logic/update/update_category.php",
@@ -90,11 +89,12 @@ $routes = [
     "/update/book/[0-9]+"=>"logic/update/update_book.php",
     "/update/subscription_plan/[0-9]+"=>"logic/update/update_subscription_plan.php",
     "/update/staff/password" =>"logic/update/update_staff_password.php",
-    "/update/subscriber/password" =>"logic/update/update_subscriber_password.php",
-
-
-
+    "/update/password/[0-9]+" =>"logic/update/update_password.php",
     
+  
+    "/verify-otp[\/a\?-zA-Z0-9\[\]&=_\- %+]*"=>"logic/verification/otp_verification.php",
+    "/verify-email" => "logic/verification/email_verification.php",
+    "/change-password[\/\?a-zA-Z0-9\[\]&=_\- %+%]*"=>"views/pages/change_password.php"
 ];
 
 
@@ -112,8 +112,6 @@ foreach($routes as $route=>$value){
 if(!$found){
     redirect("404");
 }
-
-
 
 
 

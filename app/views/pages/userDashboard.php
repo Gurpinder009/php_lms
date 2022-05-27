@@ -14,7 +14,7 @@ if (isset($issue_book_count["error"])) {
 }
 $fine = BorrowBooksModel::calculate_fine($_SESSION["auth_user"]["id"]);
 if (isset($fine["error"])) {
-    redirect("404",$fine["error"]);
+    // redirect("404",$fine["error"]);
 }
 $subscription_count  = SubscriberModel::subscription_count($_SESSION["auth_user"]["id"]);
 

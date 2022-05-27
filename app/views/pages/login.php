@@ -49,7 +49,7 @@
       </div>
       <div style="display:flex;justify-content:space-between">
         <span>Any Trouble?</span>
-        <a href="/staff/forget-password">Forget password</a>
+        <a href="/edit/forget-password">Forget password</a>
       </div>
 
       <button class="btn">Sign in</button>

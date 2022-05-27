@@ -4,5 +4,9 @@ if (isset($_GET["error"])) {
 } else {
     echo "<h1>Oops! Page is not avaiable</h1> ";
 }
+if(isset($_GET["redirect"])){
+    echo "<h3>Go <a href='/".$_GET['redirect']."'>Back</a></h3>";
+}else{
+    echo "<p>Go to <a href='/home'>home</a></p>";
+}
 ?>
-<p>Go to <a href="/home">Home</a>? page</p>

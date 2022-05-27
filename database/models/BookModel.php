@@ -50,7 +50,7 @@ class BookModel
         try {
             $stmt =  DatabaseConnection::getInstance()->prepare(
                 "select b.*,a.name as author_name,c.name as category_name,p.name as publisher_name from  
-                (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id where title like :data;");
+                (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id where b.title like :data or a.name like :data or c.name like :data or p.name like :data  ;");
             $stmt->bindValue(":data","%".$data."%");
             if($stmt->execute()){
                 return $stmt->fetchAll();

@@ -148,7 +148,7 @@ class BorrowBooksModel
             $stmt->bindParam(":id", $id);
             if ($stmt->execute()) {
                 $result = $stmt->fetchAll();
-                if (isset($result[0]["id"])) {
+                if (isset($result)) {
                     return $result;
                 }
                 throw new \PDOException("No data available");
@@ -166,7 +166,7 @@ class BorrowBooksModel
     {
         $subscribers  = self::find($id);
         if(isset($subscribers["error"])){
-            return $subscribers;
+            return $subscribers["err0r"];
         }
         $fine = 0;
         foreach ($subscribers as $subscriber) {

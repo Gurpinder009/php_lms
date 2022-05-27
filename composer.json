@@ -6,7 +6,7 @@
       "Config\\": "config/",
       "Database\\": "database/"
     },
-    "files":["utilities/helpers.php"]
+    "files":["utilities/helpers.php","utilities/sendMail.php"]
   },
   "authors": [
     {
@@ -15,7 +15,9 @@
     }
   ],
   "require": {
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "symfony/mailer": "^6.0",
+    "symfony/google-mailer": "^6.0"
   },
   "scripts": {
     "start":[ "Composer\\Config::disableProcessTimeout", "php -S localhost:8000"],

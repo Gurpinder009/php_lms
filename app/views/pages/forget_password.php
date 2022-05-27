@@ -13,22 +13,52 @@
 </head>
 
 <body>
-    
+<!-- "/update/subscriber/password" -->
 <div class="registration-form-container">
   <div class="wrapper">
     <hr />
-    <form class="registration-form" id="small-form" action="/update/subscriber/password" method="POST" autocomplete="off" onsubmit="return validateForm(this)" novalidate>
-      <h1 class="form-heading">Forget Password</h1>
+    <form class="registration-form" id="small-form" action="/verify-email" method="POST" autocomplete="off" onsubmit="return validateForm(this)" novalidate>
+      <h1  class="form-heading">Password Recovery</h1>
+      <p style="margin:2px">Enter your email address</p>
       <div class="field-container" id="small-form-field-container">
-     
-
-        <div class="form-field">
+      <div class="form-field">
           <input class="input-field" type="email" name="email" placeholder="Email Address" onblur="validateEmail(this)" />
           <small class="error" id="email-error"></small>
         </div>
+        <button class="btn" type="submit">Send OTP</button>
+      </div>
+    </form>
+    <hr />
+  </div>
+</div>
 
-     
-        <div class="form-field">
+<script src="/public/js/script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="form-field">
           <input class="input-field" type="password" name="password" id="signPassword" placeholder="Password"  onblur="validatePassword(this)" />
           <small class="error" id="password-error" ></small>
           <span id="show-password-toggler" onclick="toggle_password_visibility('signPassword')"
@@ -55,7 +85,7 @@
 
         </div>
 
-        
+
         <div class="form-field">
           <input
             class="input-field"
@@ -87,19 +117,6 @@
       ></span>
 
 
-          
+
           <small class="error" id="confirmPassword-error"></small>
-        </div>
-
-        <button class="btn" type="submit">Change Password</button>
-       
-      </div>
-    </form>
-    <hr />
-  </div>
-</div>
-
-<script src="/public/js/script.js"></script>
-</body>
-</html>
-
+        </div> -->

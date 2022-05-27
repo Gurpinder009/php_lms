@@ -117,7 +117,7 @@ class SubscriberModel
             $stmt->bindParam(":id", $id);
             if ($stmt->execute()) {
                 $result = $stmt->fetch();
-                if($result["person_id"]){
+                if(isset($result["person_id"])){
                     return $result["person_id"];
                 }
                 throw new \PDOException("No data available");

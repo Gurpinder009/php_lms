@@ -69,13 +69,14 @@ class PersonModel{
     }
 
     //update person password
-    static function updatePassword(int $id, $data){
+    static function updatePassword(int $id, $password){
         $stmt = null;
         try{
             $conn = DatabaseConnection::getInstance();
+            echo "<script>confirm('password');</script>";
             $stmt =$conn->prepare("update `person` set `password` = :password where id = :id;");
-            $data["password"] = hash("sha256", $data["password"]);
-            $stmt->bindParam(":password",$data['password']);
+
+            $stmt->bindParam(":password",$password);
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
@@ -94,6 +95,28 @@ class PersonModel{
         }catch(\PDOException $ex){
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
 
+        }
+    }
+
+
+    static function findUsingEmail(String $email)
+    {
+        $stmt = null;
+        try {
+            $conn = DatabaseConnection::getInstance();
+            $stmt = $conn->prepare("select * from person p  where p.email = :email ");
+            $stmt->bindParam(":email", $email);
+            if ($stmt->execute()) {
+                $result = $stmt->fetch();
+                if (isset($result)) {
+                    return $result;
+                }
+                throw new \PDOException("No data found");
+            }
+        } catch (\PDOException $ex) {
+            return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
+        } finally {
+            unset($stmt);
         }
     }
 }

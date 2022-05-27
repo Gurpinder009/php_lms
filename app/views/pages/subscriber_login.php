@@ -40,7 +40,7 @@
       </div>
       <div style="display:flex;justify-content:space-between">
         <span>Any Trouble?</span>
-        <a href="/subscriber/forget-password">Forget password</a>
+        <a href="/edit/forget-password">Forget password</a>
       </div>
 
 

@@ -43,7 +43,7 @@ require_once __DIR__ . "/../layout/navbar.php";
                 echo '<td data-label="Email Address:">' . $subscriber["email"] . '</td>';
                 echo '<td data-label="Phone Number:">' . $subscriber["phone_num"] . '</td>';
                 echo '<td data-label="Date of Birth:">' . $subscriber["dob"] . '</td>';
-                echo '<td data-label="Address:" type="address">'.$subscriber['city'].", ".$user["state"].", ".$user["country"].", ".$user['pin_code'] . '</td>';
+                echo '<td data-label="Address:" type="address">'.$subscriber['city'].", ".$subscriber["state"].", ".$subscriber["country"].", ".$subscriber['pin_code'] . '</td>';
                 echo "</tr>";
             }
             ?>

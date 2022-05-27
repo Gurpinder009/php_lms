@@ -4,6 +4,7 @@ use php_project;
 
 
 
+
 -- creating table 
 -- creating person table 1
 CREATE TABLE IF NOT EXISTS `person`(
@@ -20,11 +21,14 @@ CREATE TABLE IF NOT EXISTS `person`(
 PRIMARY KEY person_pk(`id`)
 );
 
+insert into person (`name`,`email`,`dob`,`city`,`state`,`country`,`pin_code`,`phone_num`,`password`)
+values("gurpinder","singh9464274057@gmail.com","2000-11-15","s","s","s","144059","234234232","password@123");
+
 -- creating subscription table 6
 CREATE TABLE IF NOT EXISTS `subscription_plans`(
 	`id` INT AUTO_INCREMENT,
     `title` VARCHAR (85),
-	`isActive` ENUM('1','0'),
+	`description` VARCHAR(255),
     `price` INT,
     `book_issue_limit` INT,
     `issue_days` INT,
@@ -180,4 +184,5 @@ select * from books;
 
 select sp.issue_days as issue_days from subscribers s inner join subscribes_to st on s.id = st.subscriber_id inner join subscription_plans sp on sp.id = st.subscription_plan_id where s.id = 1;
 
-alter table subcription_plan drop column description; 
+alter table subscription_plans drop column description; 
+alter table subscription_plans add column isActive ENUM('0','1') not null default("1");
