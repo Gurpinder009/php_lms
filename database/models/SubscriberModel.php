@@ -3,7 +3,7 @@
 namespace Database\Models;
 
 use Database\DatabaseConnection;
-use PDOException;
+
 
 //Model class for interacting with database
 //corresponding to Subsscriber
@@ -48,9 +48,10 @@ class SubscriberModel
     //retrieving whole Subscriber rows
     static function all()
     {
+        // select s.id,p.*,st.*,sp.* from subscribers s left join person p on p.id = s.person_id left join subscribes_to st on s.id = st.subscriber_id left join subscription_plans sp on st.subscription_plan_id = sp.id group by s.name;
         try {
             $conn = DatabaseConnection::getInstance();
-            return $conn->query("select p.*,s.*,sp.title from subscribers s inner join  person p on p.id = s.person_id left join subscribes_to st on s.id = st.subscriber_id left join subscription_plans sp  on sp.id =st.subscriber_id group by s.id ;")->fetchAll();
+            return $conn->query("select s.id, p.name, p.email, p.dob, p.city, p.state, p.country, p.pin_code, p.phone_num, sp.title from subscribers s left join person p on p.id = s.person_id left join subscribes_to st on s.id = st.subscriber_id left join subscription_plans sp on st.subscription_plan_id = sp.id group by s.id; ")->fetchAll();
           
 
         } catch (\PDOException $ex) {
@@ -81,6 +82,25 @@ class SubscriberModel
         }
     }
 
+    static function isExists(){
+        $stmt = null;
+        try {
+            $conn = DatabaseConnection::getInstance();
+            $stmt = $conn->prepare("select id from subscribers where id = :id;");
+            $stmt->bindParam(":id", $id);
+            if ($stmt->execute()) {
+                $result = $stmt->fetch();
+                if (isset($result)) {
+                    return true;
+                }
+                return false;
+            }
+        } catch (\PDOException $ex) {
+            return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
+        } finally {
+            unset($stmt);
+        }
+    } 
     //deleting a particular row from subscriber table
     static function delete(int $id)
     {

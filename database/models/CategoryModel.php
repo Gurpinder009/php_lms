@@ -55,9 +55,9 @@ class CategoryModel
         $stmt = null;
         try{
             $stmt = DatabaseConnection::getInstance()
-            ->prepare("UPDATE CATEGORIES SET name = :name, desc = :info where id = :id");
+            ->prepare("update categories set name=:name,`desc`=:desc where id = :id;");
             $stmt->bindParam (":name",$data['name']);
-            $stmt->bindParam(":info",$data["description"]);
+            $stmt->bindParam(":desc",$data["description"]);
             $stmt->bindParam(":id",$id); 
             return $stmt->execute(); 
 

@@ -1,5 +1,6 @@
 <?php
-require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
+
+staff_auth();
 $title = "Add Subscription Plan";
 require_once(__DIR__ . "/../../layout/navbar.php");
 

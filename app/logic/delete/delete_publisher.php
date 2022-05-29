@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__."/../auth_redirection_staff.php");
+staff_auth();
 use Database\Models\PublisherModel;
 
     $publisher_id = explode("/",$_SERVER["REQUEST_URI"])[3];

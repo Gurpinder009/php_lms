@@ -20,7 +20,7 @@ use Database\DatabaseConnection;
         static function Activeall(){
             try{
                 $result = DatabaseConnection::getInstance()
-                ->query("select * from subscription_plans where isActive=1;")
+                ->query("select * from subscription_plans where isActive = '1';")
                 ->fetchAll();
                 return $result;
             }

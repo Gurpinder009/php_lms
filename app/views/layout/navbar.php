@@ -42,7 +42,7 @@
       ?>
 
       <span>
-        <a class="link link-loggout" href="/loggout">Logout</a>
+        <a class="link link-loggout" href="/logout">Logout</a>
       </span>
     </nav>
 

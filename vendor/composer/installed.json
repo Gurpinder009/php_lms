@@ -81,17 +81,17 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "3.1.2",
-            "version_normalized": "3.1.2.0",
+            "version": "3.2",
+            "version_normalized": "3.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "ee0db30118f661fb166bcffbf5d82032df484697"
+                "reference": "a5ed8d58ed0c340a7c2109f587951b1c84cf6286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/ee0db30118f661fb166bcffbf5d82032df484697",
-                "reference": "ee0db30118f661fb166bcffbf5d82032df484697",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/a5ed8d58ed0c340a7c2109f587951b1c84cf6286",
+                "reference": "a5ed8d58ed0c340a7c2109f587951b1c84cf6286",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
             "suggest": {
                 "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
             },
-            "time": "2021-10-11T09:18:27+00:00",
+            "time": "2022-05-28T22:19:18+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -140,7 +140,7 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/3.1.2"
+                "source": "https://github.com/egulias/EmailValidator/tree/3.2"
             },
             "funding": [
                 {
@@ -453,17 +453,17 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v6.0.3",
-            "version_normalized": "6.0.3.0",
+            "version": "v6.0.9",
+            "version_normalized": "6.0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "6472ea2dd415e925b90ca82be64b8bc6157f3934"
+                "reference": "5c85b58422865d42c6eb46f7693339056db098a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/6472ea2dd415e925b90ca82be64b8bc6157f3934",
-                "reference": "6472ea2dd415e925b90ca82be64b8bc6157f3934",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/5c85b58422865d42c6eb46f7693339056db098a8",
+                "reference": "5c85b58422865d42c6eb46f7693339056db098a8",
                 "shasum": ""
             },
             "require": {
@@ -491,7 +491,7 @@
                 "symfony/dependency-injection": "",
                 "symfony/http-kernel": ""
             },
-            "time": "2022-01-02T09:55:41+00:00",
+            "time": "2022-05-05T16:45:52+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -519,7 +519,7 @@
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher/tree/v6.0.3"
+                "source": "https://github.com/symfony/event-dispatcher/tree/v6.0.9"
             },
             "funding": [
                 {
@@ -763,17 +763,17 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v6.0.8",
-            "version_normalized": "6.0.8.0",
+            "version": "v6.0.9",
+            "version_normalized": "6.0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "c1701e88ad0ca49fc6ad6cdf360bc0e1209fb5e1"
+                "reference": "e17bae63d437b3e21942dcc47ccca802d3573dd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/c1701e88ad0ca49fc6ad6cdf360bc0e1209fb5e1",
-                "reference": "c1701e88ad0ca49fc6ad6cdf360bc0e1209fb5e1",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/e17bae63d437b3e21942dcc47ccca802d3573dd8",
+                "reference": "e17bae63d437b3e21942dcc47ccca802d3573dd8",
                 "shasum": ""
             },
             "require": {
@@ -795,7 +795,7 @@
                 "symfony/property-info": "^5.4|^6.0",
                 "symfony/serializer": "^5.4|^6.0"
             },
-            "time": "2022-04-12T16:11:42+00:00",
+            "time": "2022-05-21T13:33:31+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -827,7 +827,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v6.0.8"
+                "source": "https://github.com/symfony/mime/tree/v6.0.9"
             },
             "funding": [
                 {

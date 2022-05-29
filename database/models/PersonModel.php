@@ -75,7 +75,7 @@ class PersonModel{
             $conn = DatabaseConnection::getInstance();
             echo "<script>confirm('password');</script>";
             $stmt =$conn->prepare("update `person` set `password` = :password where id = :id;");
-
+            $password = hash("sha256", $password);
             $stmt->bindParam(":password",$password);
             $stmt->bindParam(":id",$id);
             return $stmt->execute();

@@ -2,17 +2,19 @@
 
 use Database\Models\BookModel;
 use Database\Models\SubscriberModel;
-require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
+staff_auth();
 $title ="Issue Book";
-require_once(__DIR__ . "/../../layout/navbar.php");
 $subscribers = SubscriberModel::all();
 if (isset($subscribers["error"])) {
     redirect("404",$subscribers["error"]);
 }
-$books = BookModel::all();
+$books = BookModel::allAvailableBooks();
+
+
 if (isset($books["error"])) {
     redirect("404",$books["error"]);
 }
+require_once(__DIR__ . "/../../layout/navbar.php");
 ?>
 
 <link rel="stylesheet" href="../../../../public/css/forms.css">
@@ -41,7 +43,7 @@ if (isset($books["error"])) {
 
                 <div class="form-field">
                     <input class="input-field" name="subscriber_id" type="text" onblur="validateNumber(this)" placeholder="Subscriber Name" list="subscibers" />
-                    <small class="error" id="subscriber-error"></small>
+                    <small class="error" id="subscriber_id-error"></small>
                     <datalist id="subscibers">
                     <?php
                         foreach ($subscribers as $subscriber) {

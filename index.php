@@ -7,42 +7,42 @@ require_once "./vendor/autoload.php";
 
 //register you routes in $routes array
 $routes = [
-    "/" => "views/pages/adminDashboard.php",
-    "/home" => "views/pages/adminDashboard.php",
-    "/userDashboard"=>"views/pages/userDashboard.php",
-    "/staff/auth" => "logic/staff_auth.php",
-    "/subscriber/auth" => "logic/subscriber_auth.php",
-    "/login" => "views/pages/login.php",
-    "/search-books\?[title=a-zA-Z0-9\[\]_ %]+"=>"logic/bookSearch.php",
-    "/login\?error=[a-zA-Z0-9\[\]_ %]+"=>"views/pages/login.php",
-    "/subscriber/login"=>"views/pages/subscriber_login.php",
-    "/subscriber/login\?error=[a-zA-Z0-9\[\]_ %]+"=>"views/pages/subscriber_login.php",
-    "/profile"=>"views/pages/profile_page.php",
-    "/loggout"=>"logic/logout.php",
+    "/" => "views/pages/staff_dashboard.php",
+    "/home" => "views/pages/staff_dashboard.php",
+    "/subscriber_dashboard"=>"views/pages/subscriber_dashboard.php",
+    "/staff/auth" => "logic/login/staff_login.php",
+    "/subscriber/auth" => "logic/login/subscriber_login.php",
+    "/search-books\?[title=a-zA-Z0-9\[\]_ %]+"=>"logic/book_search.php",
+    "/logout"=>"logic/logout.php",
     "/404[\/\?a-zA-Z0-9\[\]&=_\- %+]*" => "views/pages/_404.php",
-    "/books" => "views/pages/books.php",
-    "/subscriber/books" => "views/pages/SubscriberBooks.php",
-    "/authors"=>"views/pages/authors.php",
-    "/categories"=>"views/pages/categories.php",
-    "/subscribers"=>"views/pages/subscribers.php",
-    "/subscription_plans"=>"views/pages/subscriptions.php",
-    "/publishers"=>"views/pages/publishers.php",
-    "/staff_members"=>"views/pages/staff_members.php",  
-    "/issued_books"=>"views/pages/issued_books.php", 
-    
-    "/issue_book"=>"logic/issue_book.php",
-    "/return_book/[0-9]+"=>"logic/return_book.php",
+    "/books" => "views/pages/all/books.php",
+    "/subscriber/books" => "views/pages/all/subscriber_books.php",
+    "/authors"=>"views/pages/all/authors.php",
+    "/categories"=>"views/pages/all/categories.php",
+    "/subscribers"=>"views/pages/all/subscribers.php",
+    "/subscription_plans"=>"views/pages/all/subscription_plans.php",
+    "/publishers"=>"views/pages/all/publishers.php",
+    "/staff_members"=>"views/pages/all/staff_members.php",  
+    "/issued_books"=>"views/pages/all/issued_books.php", 
+    "/issue_book"=>"logic/issue_return/issue_book.php",
+    "/return_book/[0-9]+"=>"logic/issue_return/return_book.php",
     
 
-    "/subscriber/issued_books"=>"views/pages/issued_books_subscriber.php", 
-    "/subscriber/subscription_plan"=>"views/pages/subscriber_subscription.php", 
+    //login forms
+    "/login[?=a-zA-Z0-9\[\]_ %]*"=>"views/pages/login.php",
+    "/subscriber/login[?=a-zA-Z0-9\[\]_ %]*"=>"views/pages/subscriber_login.php",
+    
+
+    "/subscriber/issued_books"=>"views/pages/all/issued_books_subscriber.php", 
+    "/subscriber/subscription_plan"=>"views/pages/all/subscriber_subscription_plans.php", 
     
     //forms for updation
-    "/edit/author/[0-9]+"=>"views/pages/update/author_update.php",
-    "/edit/book/[0-9]+"=>"views/pages/update/book_update.php",
-    "/edit/publisher/[0-9]+"=>"views/pages/update/publisher_update.php",
-    "/edit/category/[0-9]+"=>"views/pages/update/category_update.php",
-    "/edit/subscription_plan/[0-9]+"=>"views/pages/update/subscription_plan_update.php",
+    "/edit/author/[0-9]+"=>"views/pages/edit/author_edit.php",
+    "/edit/book/[0-9]+"=>"views/pages/edit/book_edit.php",
+    "/edit/publisher/[0-9]+"=>"views/pages/edit/publisher_edit.php",
+    "/edit/category/[0-9]+"=>"views/pages/edit/category_edit.php",
+    "/edit/subscription_plan/[0-9]+"=>"views/pages/edit/subscription_plan_edit.php",
+    "/edit/forget-password"=>"views/pages/password/forget_password.php",
     
     
     
@@ -54,8 +54,7 @@ $routes = [
     "/delete/subscriber/[0-9]+"=>"logic/delete/delete_subscriber.php",
     "/delete/staff/[0-9]+"=>"logic/delete/delete_staff.php",
     "/delete/subscription_plans/[0-9]+"=>"logic/delete/delete_subscription_plan.php",
-   
-    "/edit/forget-password"=>"views/pages/forget_password.php",
+
     
     
     
@@ -71,16 +70,16 @@ $routes = [
     "/publisher/create" => "views/pages/create/publisher_create.php",
     "/subscription_plan/create" => "views/pages/create/subscription_plan_create.php",
     "/assign_subscription_plan" =>"views/pages/create/provide_subscription_plan.php",
-    "/provideSubscription" =>"logic/provideSubscription.php",
+    "/provide_subscription" =>"logic/provide_subscription.php",
     
     //for storing form data
-    "/category/store" => "logic/storeCategory.php",
-    "/author/store" => "logic/storeAuthor.php",
-    "/staff/store" => "logic/storeStaffMember.php",
-    "/subscriber/store" => "logic/storeSubcriber.php",
-    "/book/store" => "logic/storeBook.php",
-    "/publisher/store" => "logic/storePublisher.php",
-    "/subscription/store"=>"logic/storeSubscriptionPlan.php",
+    "/category/store" => "logic/store/store_category.php",
+    "/author/store" => "logic/store/store_author.php",
+    "/staff/store" => "logic/store/store_staff_member.php",
+    "/subscriber/store" => "logic/store/store_subcriber.php",
+    "/book/store" => "logic/store/store_book.php",
+    "/publisher/store" => "logic/store/store_publisher.php",
+    "/subscription/store"=>"logic/store/store_subscription_plan.php",
     
     //updating user data 
     "/update/author/[0-9]+"=>"logic/update/update_author.php",
@@ -94,7 +93,7 @@ $routes = [
   
     "/verify-otp[\/a\?-zA-Z0-9\[\]&=_\- %+]*"=>"logic/verification/otp_verification.php",
     "/verify-email" => "logic/verification/email_verification.php",
-    "/change-password[\/\?a-zA-Z0-9\[\]&=_\- %+%]*"=>"views/pages/change_password.php"
+    "/change-password[\/\?a-zA-Z0-9\[\]&=_\- %+%]*"=>"views/pages/password/change_password.php"
 ];
 
 

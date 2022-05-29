@@ -143,6 +143,8 @@ SELECT * FROM BOOKS;
 SELECT * FROM BORROW_BOOKS;
 SELECT * FROM AUTHORS;
 SELECT * FROM CATEGORIES;
+select * from categories;
+update categories set name = 'name', `desc` = 'description' where id = 5;
 SELECT * FROM PUBLISHERS;
 select * from subscription_plans;
 select * from subscribes_to;

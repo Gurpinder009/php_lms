@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_GET["error"])) {
     print_r("<h1>".$_GET["error"]."</h1>");
 } else {

@@ -2,8 +2,7 @@
 
 use Database\Models\SubscriberModel;
 use Database\Models\SubscriptionPlanModel;
-require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
-
+staff_auth();
 require_once(__DIR__ . "/../../layout/navbar.php");
 $subscribers = SubscriberModel::all();
 if (isset($subscribers["error"])) {
@@ -22,7 +21,7 @@ if (isset($subscription_plans["error"])) {
 <div class="registration-form-container">
     <div class="wrapper">
         <hr />
-        <form class="registration-form" id="small-form" action="/provideSubscription" method="POST" onsubmit="return validateBookForm(this)" autocomplete="off">
+        <form class="registration-form" id="small-form" action="/provide_subscription" method="POST" onsubmit="return validateBookForm(this)" autocomplete="off">
             <h1 class="form-heading">Provide Plan</h1>
             <div class="field-container" id="small-form-field-container">
             

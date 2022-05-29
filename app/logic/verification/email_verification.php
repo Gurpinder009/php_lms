@@ -13,7 +13,7 @@
         if(sendMail($result["email"],$message)){
             $hashed_otp = hash("sha256",$otp);
             $encode_url=urlencode("verify-otp/".$result['id']."?otp=$hashed_otp");
-            require_once(__DIR__."/../../views/pages/otp-form.php");
+            require_once(__DIR__."/../../views/pages/password/otp_form.php");
         }
         
 

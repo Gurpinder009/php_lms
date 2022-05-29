@@ -21,6 +21,16 @@ class BookModel
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
+    static function allAvailableBooks(){
+        try {
+            // select * from books where accession_no  not in (select accession_no from books b inner join borrow_books bb on b.accession_no = bb.book_id where bb.`return date` is not null);
+            return DatabaseConnection::getInstance()->query(
+                "select * from books where accession_no not in (select b.accession_no from books b inner join borrow_books bb on bb.book_id = b.accession_no where bb.`return date` is null);"
+            )->fetchAll();
+        } catch (\PDOException $ex) {
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
+        }
+    }
   
     //getting particular book
     static function find(int $id)

@@ -1,6 +1,5 @@
 <?php
-require_once(__DIR__ . "/../../../logic/auth_redirection_staff.php");
-
+staff_auth();
 
 use Database\Models\AuthorModel;
 use Database\Models\CategoryModel;

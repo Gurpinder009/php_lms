@@ -6,7 +6,7 @@
       "Config\\": "config/",
       "Database\\": "database/"
     },
-    "files":["utilities/helpers.php","utilities/sendMail.php"]
+    "files":["utilities/helpers.php","utilities/sendMail.php","utilities/auth_redirect.php"]
   },
   "authors": [
     {

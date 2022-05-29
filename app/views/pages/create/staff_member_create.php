@@ -1,7 +1,5 @@
 <?php
-
-require_once(__DIR__."/../../../logic/auth_redirection_staff.php");
-
+staff_auth();
 
 $title = "Add Staff Member";
 

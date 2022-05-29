@@ -60,7 +60,7 @@ class BorrowBooksModel
             die();
         }
         if (!isset($data["issue_date"]) || $data["issue_date"] == "") {
-            $date["issue_date"] = date("Y-m-d");
+            $data["issue_date"] = date("Y-m-d");
         }
         $expected_date = new \DateTime($data["issue_date"]);
         date_add($expected_date, new \DateInterval("P".$days["issue_days"]."D"));
@@ -211,10 +211,10 @@ class BorrowBooksModel
                 if (isset($result["count"]) && $result["count"] > 0) {
                     return true;
                 }
-                throw new \PDOException("");
+                return false;
             }
         } catch (\PDOException $ex) {
-            return false;
+            return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
         }
