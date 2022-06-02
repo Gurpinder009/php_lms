@@ -48,10 +48,10 @@ class SubscriberModel
     //retrieving whole Subscriber rows
     static function all()
     {
-        // select s.id,p.*,st.*,sp.* from subscribers s left join person p on p.id = s.person_id left join subscribes_to st on s.id = st.subscriber_id left join subscription_plans sp on st.subscription_plan_id = sp.id group by s.name;
+      
         try {
             $conn = DatabaseConnection::getInstance();
-            return $conn->query("select s.id, p.name, p.email, p.dob, p.city, p.state, p.country, p.pin_code, p.phone_num, sp.title from subscribers s left join person p on p.id = s.person_id left join subscribes_to st on s.id = st.subscriber_id left join subscription_plans sp on st.subscription_plan_id = sp.id group by s.id; ")->fetchAll();
+            return $conn->query("select s.id, p.name, p.email, p.dob, p.city, p.state, p.country, p.pin_code, p.phone_num, sp.title from subscribers s left join person p on p.id = s.person_id left join subscribes_to st on s.id = st.subscriber_id left join subscription_plans sp on st.subscription_plan_id = sp.id group by s.id limit 2 offset 0;")->fetchAll();
           
 
         } catch (\PDOException $ex) {

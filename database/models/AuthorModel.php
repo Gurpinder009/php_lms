@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Database\Models;
 
 use Config\Interfaces\ModelInterface;
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 class AuthorModel implements ModelInterface
@@ -17,8 +18,8 @@ class AuthorModel implements ModelInterface
             $result = $conn->query("select * from authors;");
             return $result->fetchAll();
         } catch (\PDOException $ex) {
+            LogHandler::errorLog("Author::all",["error"=>$ex->getMessage(),"code"=>$ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-        
         }
     }
 
@@ -38,6 +39,7 @@ class AuthorModel implements ModelInterface
                 throw new \PDOException("No data is available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::errorLog("Author::find",["error"=>$ex->getMessage(),"code"=>$ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
             
         } finally {

@@ -17,7 +17,8 @@
   "require": {
     "vlucas/phpdotenv": "^5.4",
     "symfony/mailer": "^6.0",
-    "symfony/google-mailer": "^6.0"
+    "symfony/google-mailer": "^6.0",
+    "monolog/monolog": "^2.6"
   },
   "scripts": {
     "start":[ "Composer\\Config::disableProcessTimeout", "php -S localhost:8000"],

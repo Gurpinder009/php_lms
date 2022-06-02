@@ -1,6 +1,7 @@
 <?php
 namespace Database\Models;
 
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 //Model class for interacting with database
@@ -157,6 +158,11 @@ class StaffModel
                 $_SESSION['isStaff'] = true;
                 $_SESSION['auth_user'] = $person;
                 session_regenerate_id();
+
+                //logging
+                LogHandler::infoLog("Login",$person["name"]." is logged in");
+
+
                 return true;
             }
             return ["error"=>"Wrong Password"];
@@ -170,6 +176,9 @@ class StaffModel
     {
         session_start();
         if (isset($_SESSION['auth'])) {
+            //logging
+            LogHandler::infoLog("Login",$_SESSION["auth_user"]["name"]." is logged out");
+
             unset($_SESSION['auth']);
             unset($_SESSION['auth_user']);
             session_regenerate_id();

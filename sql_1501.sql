@@ -150,6 +150,8 @@ select * from subscription_plans;
 select * from subscribes_to;
 
 
+
+
 -- DROPING TABLES
 DROP TABLE IF EXISTS PERSON;
 DROP TABLE IF EXISTS STAFF_MEMBERS;
