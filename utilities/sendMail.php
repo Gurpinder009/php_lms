@@ -14,7 +14,7 @@ function sendMail($to,$message){
     $mailer = null;
     try {
         $email = (new Email())
-            ->from("noreply@mydomain.com")
+            ->from($_ENV["FROM"])
             ->to($to)
             ->subject($_ENV["PROJECT_NAME"])
             ->html($message);

@@ -17,13 +17,14 @@
   <title>
     Staff Login
   </title>
+  <!-- <link rel="stylesheet" href="/public/css/styles.css"> -->
   <link rel="stylesheet" href="/public/css/Login-form.css" />
 </head>
 
 <body>
-  <?php
+<?php
   if (isset($_GET["error"])) {
-    echo "<div class='alert' onclick='closeAlert(this)'>" . $_GET["error"] . "</div>";
+    echo "<div id='alert' onclick='closeAlert(this)'>" . $_GET["error"] . "</div>";
   }
   ?>
 

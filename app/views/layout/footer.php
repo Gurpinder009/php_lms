@@ -66,5 +66,7 @@
     </div>
 
     <script src="/public/js/script.js"></script>
+<script src="https://kit.fontawesome.com/265a92e85a.js" crossorigin="anonymous"></script>
+
   </body>
 </html> -->

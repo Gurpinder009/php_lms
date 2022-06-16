@@ -192,18 +192,7 @@ class SubscriberModel
         }
     }
 
-    //logging out Subscriber
-    static function logout()
-    {
-        session_start();
-        if (isset($_SESSION['auth'])) {
-            unset($_SESSION['auth']);
-            unset($_SESSION['auth_user']);
-            session_regenerate_id();
-            return true;
-        }
-        return true;
-    }
+    
 
     // for counting subscriber
     static function count()

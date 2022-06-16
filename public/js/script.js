@@ -1,3 +1,5 @@
+
+
 function menu() {
   let x = document.documentElement.style;
   if (document.querySelector("#drawer").offsetWidth !== 0) {
@@ -170,8 +172,9 @@ function validateULForm(e) {
 
 function validateBookForm(e) {
   return (
+    validateNumber(e["access_no"]) &&
     validateName(e["title"]) &&
-    validateNumber(e["no_of_copies"]) &&
+    validateName(e["author_id"]) &&
     validateCondtion(e["condition"]) &&
     validateNumber(e["edition"]) &&
     validateName(e["language"])
@@ -296,6 +299,14 @@ function documentWriteSubscriber(values) {
         </tr>`;
 }
 
+
+function validateStaffFormValidation(e){
+  return  validateName(e["name"]) && validateEmail(e["email"]) && validatePhoneNum(e["phone_num"]) && validateNumber(e["salary"]) && validateDate(e["dob"]) && validateName(e["city"]) && validateName(e["state"]) && validateName(e["country"]) && validatePinCode(e["pin_code"]) && validatePassword(e["password"]) && validateConfirmPassword(e["confirmPassword"]); 
+
+}
+
 function test() {
   console.log("working");
 }
+
+

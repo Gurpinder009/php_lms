@@ -173,7 +173,7 @@ body{
   }
 
 
-  .alert{
+  #alert{
     border:2px solid red;
     color:rgb(248, 248, 248);
     background-color: rgba(255, 0, 0, 0.3);
@@ -189,8 +189,8 @@ body{
     pointer-events: none;
   }
 
-  .alert::after{
-    content: "Close";
+  #alert::after{
+    content: "X";
     pointer-events:all;
     cursor: pointer;
   }

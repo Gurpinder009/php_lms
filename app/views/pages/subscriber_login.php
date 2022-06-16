@@ -14,7 +14,7 @@
 <body>
   <?php
   if (isset($_GET["error"])) {
-    echo "<div class='alert' onclick='closeAlert(this)'>" . $_GET["error"] . "</div>";
+    echo "<div id='alert' onclick='closeAlert(this)'>" . $_GET["error"] . "</div>";
   }
   ?>
 

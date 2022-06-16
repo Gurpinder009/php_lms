@@ -1,7 +1,8 @@
 <?php
-use Database\Models\SubscriberModel;
+
+use Database\Models\PersonModel;
 subscriber_staff_auth();
-SubscriberModel::logout();
+PersonModel::logout();
 redirect("home");
 
 

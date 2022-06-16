@@ -9,7 +9,7 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
 <div class="registration-form-container">
   <div class="wrapper">
     <hr />
-    <form class="registration-form" action="/subscriber/store" method="POST" onsubmit="return validateURForm(this)" autocomplete="off">
+    <form class="registration-form" action="/subscriber/email_verfication" method="POST" onsubmit="return validateURForm(this)" autocomplete="off">
       <h1 class="form-heading">Subscriber Registration</h1>
       <div class="field-container">
         <div class="form-field">

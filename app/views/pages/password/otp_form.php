@@ -17,7 +17,7 @@
 <div class="registration-form-container">
   <div class="wrapper">
     <hr />
-    <form class="registration-form" id="small-form" action="/<?php echo $encode_url;?>" method="POST" autocomplete="off" onsubmit="return validateForm(this)" novalidate>
+    <form class="registration-form" id="small-form" action="/verify-otp" method="POST" autocomplete="off" onsubmit="return validateForm(this)" novalidate>
       <h1  class="form-heading">Password Recovery</h1>
       <p style="margin:2px">Enter OTP sent to your email address. </p>
       <div class="field-container" id="small-form-field-container">

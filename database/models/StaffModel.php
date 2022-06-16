@@ -171,22 +171,6 @@ class StaffModel
         }
     }
 
-    //logging out user
-     static function logout()
-    {
-        session_start();
-        if (isset($_SESSION['auth'])) {
-            //logging
-            LogHandler::infoLog("Login",$_SESSION["auth_user"]["name"]." is logged out");
-
-            unset($_SESSION['auth']);
-            unset($_SESSION['auth_user']);
-            session_regenerate_id();
-            return true;
-        }
-            return true;
-
-    }
 
     // counting all staff members
      static function count(){

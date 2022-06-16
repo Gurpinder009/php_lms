@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Models;
+
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 class PersonModel{
@@ -119,4 +121,21 @@ class PersonModel{
             unset($stmt);
         }
     }
+
+        //logging out user
+        static function logout()
+        {
+            session_start();
+            if (isset($_SESSION['auth'])) {
+                //logging
+                LogHandler::infoLog("Logout",$_SESSION["auth_user"]["name"]." is logged out");
+                unset($_SESSION['auth']);
+                unset($_SESSION['auth_user']);
+                session_regenerate_id();
+                return true;
+            }
+                return true;
+    
+        }
+    
 }

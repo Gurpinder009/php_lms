@@ -1,13 +1,28 @@
 <?php
 
-    $url = explode("=",urldecode($_SERVER["REQUEST_URI"]));
-    $otp = end($url);
-    $url =explode("?",$url[0])[0];
-    $id= explode("/",$url)[2];
-    if($otp === hash("sha256",$_POST["otp"])){
-        $url = urlencode("change-password?id=$id");
-        redirect($url);
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (isset($_SESSION["verification_data"])) {
+    $data = $_SESSION["verification_data"];
+    $now = new DateTime(date(""));
+    if ($data["expire_time"] < $now) {
+        redirect("404", "Sorry Timeout");
     }
-    else{
-        redirect("404","Wrong otp");
+
+    $otp = $data["hashedOtp"];
+    if ($otp === hash("sha256", $_POST["otp"])) {
+        if(isset($data["staff_data"])){
+            redirect("staff/store");
+        }elseif ($data["data"]){
+            redirect("subscriber/store");
+        }else{
+            $url = urlencode("change-password?id=" . $data["id"]);
+            redirect($url);
+        }
+    } else {
+        redirect("404", "Wrong otp");
     }
+} else {
+    redirect("404", "Page Not found");
+}

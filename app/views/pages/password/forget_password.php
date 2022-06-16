@@ -10,9 +10,17 @@
   </title>
   <link rel="stylesheet" href="/public/css/styles.css" />
   <link rel="stylesheet" href="/public/css/forms.css">
+
 </head>
 
-<body>
+<body >
+<div class="alert-container">
+  <?php
+if (isset($_GET["error"])) {
+    echo "<div id='alert' onclick='closeAlert(this)'>" . $_GET["error"] . "</div>";
+}
+?>
+  </div>
 <!-- "/update/subscriber/password" -->
 <div class="registration-form-container">
   <div class="wrapper">

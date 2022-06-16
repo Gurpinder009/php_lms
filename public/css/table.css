@@ -3,7 +3,7 @@
 .table-wrapper {
   margin: 2em;
   /* width: 80%; */
-  width:100%;
+  width:95%;
   max-width: 90em;
   padding: 2em;
   padding-top: 3em;
@@ -146,6 +146,8 @@ td:first-child {
     border-bottom: 1px solid rgb(88, 88, 88);
   }
 
+ 
+
   td[type="desc"],
   td[type="address"] {
     padding: 1.2em 0;
@@ -157,4 +159,43 @@ td:first-child {
     text-transform: capitalize;
     font-weight: 600;
   }
+}
+
+
+.pager{
+  color:green;
+  margin:1em 1em 0 0;
+  float:right;
+  display:grid;
+  width:fit-content;
+  grid-template-columns: 3fr 2fr 3fr;
+  /* border:2px solid rgb(80, 80, 80); */
+  border-radius: 3px;
+
+}
+
+.page{
+  
+  text-align: center;
+  padding: 0.5em 1em;
+  background-color: rgb(216, 216, 216);
+}
+
+.btn{
+  padding: 0.5em 1em;
+  box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+  border:none;
+  color:white;
+  outline:none;
+  background-color: rgb(68, 121, 142);
+
+}
+.btn > i{
+  color:white;
+}
+
+.disabled{
+  /* border:2px solid red; */
+  pointer-events: none;
+  background-color: rgb(100, 129, 140);
 }

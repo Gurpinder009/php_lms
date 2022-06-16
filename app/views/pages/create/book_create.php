@@ -10,13 +10,13 @@ $categories = CategoryModel::all();
 $publishers = PublisherModel::all();
 $title = "Add Book";
 
-require_once __DIR__ . "/../../layout/navbar.php"; ?>
+require_once __DIR__ . "/../../layout/navbar.php";?>
 <link rel="stylesheet" href="../../../../public/css/forms.css">
 
 <div class="registration-form-container">
   <div class="wrapper">
     <hr />
-    <form class="registration-form" action="/book/store" method="POST" onsubmit="return validateBookForm(this)" autocomplete="off">
+    <form class="registration-form" id="book-form" action="/book/store" method="POST" onsubmit="return validateBookForm(this)" autocomplete="off">
       <h1 class="form-heading">Books</h1>
       <div class="field-container">
         <div class="form-field">
@@ -34,10 +34,10 @@ require_once __DIR__ . "/../../layout/navbar.php"; ?>
           <input class="input-field" name="author_id" onblur="validateName(this)" placeholder="Author Name" list="authors" />
           <datalist id="authors">
             <?php
-            foreach ($authors as $author) {
-              echo "<option value='" . $author['name'] . "'>" . $author['name'] . "</option>";
-            }
-            ?>
+foreach ($authors as $author) {
+    echo "<option value='" . $author['name'] . "'>" . $author['name'] . "</option>";
+}
+?>
           </datalist>
 
 
@@ -55,16 +55,16 @@ require_once __DIR__ . "/../../layout/navbar.php"; ?>
             onfocus="(this.type='date')"  placeholder="Year of publication" />
           <small class="error" id="year_of_publication-error"></small>
         </div>
-     
 
-            <div>
+
+            <div class="form-field">
         <input class="input-field" name="category_id" onblur="validateName(this)" placeholder="Category" list="categories" />
         <datalist id="categories">
           <?php
-          foreach ($categories as $category) {
-            echo "<option value='" . $category['name'] . "'>" . $category['name'] . "</option>";
-          }
-          ?>
+foreach ($categories as $category) {
+    echo "<option value='" . $category['name'] . "'>" . $category['name'] . "</option>";
+}
+?>
         </datalist>
         <small class="error" id="category_id-error"></small>
 
@@ -90,17 +90,17 @@ require_once __DIR__ . "/../../layout/navbar.php"; ?>
         </div>
 
 
-        <div>
+        <div class="form-field">
           <input class="input-field" name="publisher_id" onblur="validateName(this)" placeholder="Publisher" list="Publishers" />
           <datalist id="Publishers">
             <?php
-            foreach ($publishers as $publisher) {
-              echo "<option value='" . $publisher["name"] . "'>" . $publisher['name'] . "</option>";
-            }
-            ?>
+foreach ($publishers as $publisher) {
+  echo "<option value='" . $publisher["name"] . "'>" . $publisher['name'] . "</option>";
+}
+?>
           </datalist>
           <small class="error" id="publisher_id-error"></small>
-
+          
         </div>
 
 

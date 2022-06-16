@@ -7,13 +7,19 @@ require_once __DIR__ . "/../../layout/navbar.php";?>
 <link rel="stylesheet" href="../../../../public/css/forms.css">
 
 <div class="registration-form-container">
+  
   <div class="wrapper">
+  <?php
+  if (isset($_GET["error"])) {
+    echo "<script>alert('".$_GET["error"]."')</script>";
+  }
+  ?>
     <hr />
-    <form class="registration-form" action="/staff/store" method="POST" onsubmit="return validateURForm(this)" autocomplete="off">
+    <form class="registration-form" action="/staff/email_verfication" method="POST" onsubmit="return validateStaffFormValidation(this)" autocomplete="off">
       <h1 class="form-heading">Staff Registration</h1>
       <div class="field-container">
         <div class="form-field">
-          <input class="input-field" name="name" placeholder="Name" onblur="validateName(this)" value="<?php echo (isset($_POST["name"])?"hello":"" )?>" />
+          <input class="input-field" name="name" placeholder="Name" onblur="validateName(this)"  />
           <small class="error" id="name-error"></small>
         </div>
 
