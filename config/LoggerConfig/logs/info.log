@@ -19,3 +19,4 @@
 [2022-06-16T08:18:31.493804+02:00] log.INFO: Logout {"message":"Gurpinder singh is logged out"} []
 [2022-06-16T08:18:48.144584+02:00] log.INFO: Login {"message":"Gurpinder Singh is logged in"} []
 [2022-06-16T08:28:28.619030+02:00] log.INFO: Logout {"message":"Gurpinder Singh is logged out"} []
+[2022-06-16T18:45:51.116023+02:00] log.INFO: Login {"message":"Gurpinder Singh is logged in"} []

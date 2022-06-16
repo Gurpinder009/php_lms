@@ -92,7 +92,7 @@ use Database\DatabaseConnection;
             $stmt = null;
             try{
                 $stmt=  DatabaseConnection::getInstance()
-                ->prepare("update subscription_plans set title=:title,isActive=:desc,price=:price,book_issue_limit=:book_issue_limit,issue_days=:issue_days,time_period=:time_period where id =:id;");
+                ->prepare("update subscription_plans set title=:title,description=:desc,price=:price,book_issue_limit=:book_issue_limit,issue_days=:issue_days,time_period=:time_period where id =:id;");
                 $stmt->bindParam(":title",$data['title']);
                 $stmt->bindParam(":desc",$data["isActive"]);
                 $stmt->bindParam(":price",$data["price"]);

@@ -27,7 +27,7 @@ PRIMARY KEY person_pk(`id`)
 CREATE TABLE IF NOT EXISTS `subscription_plans`(
 	`id` INT AUTO_INCREMENT,
     `title` VARCHAR (85),
-	`description` VARCHAR(255),
+	`description` ENUM("0","1"),
     `price` INT,
     `book_issue_limit` INT,
     `issue_days` INT,
@@ -70,7 +70,7 @@ PRIMARY KEY staff_member_pk(`id`)
 );
 
 -- creating publisher table 8
-CREATE TABLE IF NOT EXISTS publishers(
+CREATE TABLE IF NOT EXISTS `publishers`(
 `id` INT AUTO_INCREMENT,
 `name` VARCHAR(85) not null unique,
 `contact_info` VARCHAR(200),
@@ -79,7 +79,7 @@ PRIMARY KEY publisher_pk(`id`)
  
 
 -- creating categories table 10
-CREATE TABLE IF NOT EXISTS categories(
+CREATE TABLE IF NOT EXISTS `categories`(
 `id` INT AUTO_INCREMENT,
 `name` VARCHAR(50) NOT NULL unique,
 `desc` VARCHAR(255),  
@@ -89,7 +89,7 @@ PRIMARY KEY category_pk(`id`)
 
 
 -- creating author table 9
-CREATE TABLE IF NOT EXISTS authors(
+CREATE TABLE IF NOT EXISTS `authors`(
 `id` INT AUTO_INCREMENT,
 `name` VARCHAR(85)  NOT NULL UNIQUE,
 `contact_info` VARCHAR(200),
@@ -99,7 +99,7 @@ PRIMARY KEY author_pk(`id`)
 
 
 -- creating  book table 7
-CREATE TABLE IF NOT EXISTS books(
+CREATE TABLE IF NOT EXISTS `books`(
 `accession_no` INT AUTO_INCREMENT,
 `title` VARCHAR(85) NOT NULL,
 `condition` ENUM('best','good','bad'),  
@@ -121,7 +121,7 @@ PRIMARY KEY book_pk(`accession_no`)
 
 
 -- creating borrow_books table 11
-CREATE TABLE IF NOT EXISTS borrow_books(
+CREATE TABLE IF NOT EXISTS `borrow_books`(
 `id` INT AUTO_INCREMENT,
 `issue_date` DATE NOT NULL,
 `return date` DATE,
@@ -135,7 +135,6 @@ PRIMARY KEY borrow_books_pk(`id`)
 
 
 -- Retrieving data from tables
-show tables;
 SELECT * FROM PERSON;
 SELECT * FROM STAFF_MEMBERs;
 SELECT * FROM subscribers;
@@ -143,8 +142,6 @@ SELECT * FROM BOOKS;
 SELECT * FROM BORROW_BOOKS;
 SELECT * FROM AUTHORS;
 SELECT * FROM CATEGORIES;
-select * from categories;
-update categories set name = 'name', `desc` = 'description' where id = 5;
 SELECT * FROM PUBLISHERS;
 select * from subscription_plans;
 select * from subscribes_to;
@@ -162,10 +159,10 @@ DROP TABLE IF EXISTS AUTHORS;
 DROP TABLE IF EXISTS CATEGORIES;
 DROP TABLE IF EXISTS PUBLISHERS;
 DROP TABLE IF EXISTS SUBSCRIPTIONS;
-drop table `subscribes_to`;
+drop table SUBSCRIBES_TO;
 
 -- DELETING DATA FROM TABLES
-set sql_safe_updates=0;
+-- set sql_safe_updates=0;
 DELETE FROM PERSON;
 DELETE FROM STAFF_MEMBERS;
 DELETE FROM CUSTOMERS;
@@ -176,25 +173,19 @@ DELETE FROM CATEGORIES;
 DELETE FROM PUBLISHERS;
 DELETE FROM ROLES;
 DELETE FROM SUBSCRIPTIONS;
-show tables;
 
-select last_insert_id() from books;
-DELETE FROM CUSTOMERS WHERE id = 1;
+-- select last_insert_id() from books;
+-- DELETE FROM CUSTOMERS WHERE id = 1;
 -- delete from staff_members w here ;
-use php_project;
-show tables;
-
-select * from books;
 
 
-select sp.issue_days as issue_days from subscribers s inner join subscribes_to st on s.id = st.subscriber_id inner join subscription_plans sp on sp.id = st.subscription_plan_id where s.id = 1;
+-- select sp.issue_days as issue_days from subscribers s inner join subscribes_to st on s.id = st.subscriber_id inner join subscription_plans sp on sp.id = st.subscription_plan_id where s.id = 1;
 
-alter table subscription_plans drop column description; 
-alter table subscription_plans add column isActive ENUM('0','1') not null default("1");
+-- alter table subscription_plans drop column description; 
+-- alter table subscription_plans add column isActive ENUM('0','1') not null default("1");
 
 
-insert into person (`name`,`email`,`dob`,`city`,`state`,`country`,`pin_code`,`phone_num`,`password`)
-values("gurpinder","singh9464274057@gmail.com","2000-11-15","s","s","s","144059","234234232","password@123");
+INSERT INTO `php_project`.`subscribes_to` (`id`, `subscription_plan_id`, `subscriber_id`, `purchase_date`) VALUES ('1', '1', '1', '2022-06-16');
 
 
 INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
@@ -242,3 +233,15 @@ INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`,
 
 
 
+INSERT INTO `php_project`.`PERSON` (`id`, `name`, `email`, `dob`, `city`, `state`, `country`, `pin_code`, `phone_num`, `password`) VALUES ('3', 'Gurjot Singh', 'gsinghsaggu6@gmail.com', '2000-02-11', 'Banga ', 'Punjab', 'India', '144059', '3829837492', 'password@123');
+
+
+
+INSERT INTO `php_project`.`AUTHORS` (`id`, `name`, `contact_info`) VALUES ('1', 'Parteek', 'parteek@gmail.com');
+INSERT INTO `php_project`.`CATEGORIES` (`id`, `name`, `desc`) VALUES ('1', 'Software Engineering', 'all about software development');
+INSERT INTO `php_project`.`publishers` (`id`, `name`, `contact_info`) VALUES ('1', 'Kalyani', 'Kalyani@gmail.com');
+INSERT INTO `php_project`.`subscribers` (`id`, `person_id`) VALUES ('1', '3');
+INSERT INTO `php_project`.`STAFF_MEMBERs` (`id`, `person_id`, `salary`, `is_admin`) VALUES ('3', '4', '12000', '0');
+INSERT INTO `php_project`.`subscription_plans` (`id`, `title`, `description`, `price`, `book_issue_limit`, `issue_days`, `time_period`) VALUES ('1', 'Diamond', 'High End Plan', '500', '4', '20', '30');
+INSERT INTO `php_project`.`subscribes_to` (`id`, `subscription_plan_id`, `subscriber_id`, `purchase_date`) VALUES ('1', '1', '1', '2022-06-16');
+INSERT INTO `php_project`.`BORROW_BOOKS` (`id`, `issue_date`, `return date`, `expected_return_date`, `book_id`, `subscriber_id`) VALUES ('1', '2022-06-16', '2022-06-3', '2022-06-18', '1', '1');

@@ -55,7 +55,7 @@ $title = "Edit Subscription_plan";
 
                 <div class="form-field">
                 <label for="isActive" >isActive</label>
-                    <input class="input-field" id="isActive"  name="isActive" onblur="validateNumber(this)" list="is_active" value="<?php echo $subscription_plan["isActive"]?>" />
+                    <input class="input-field" id="isActive"  name="isActive" onblur="validateNumber(this)" list="is_active" value="<?php echo $subscription_plan["description"]?>" />
                     <datalist id="is_active">
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
