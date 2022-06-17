@@ -15,6 +15,7 @@ if(!isset($subscription_plans[0]["id"])){
     require_once(__DIR__ . "/../../layout/footer.php");
     die();
 }
+
 ?>
 
 <link rel="stylesheet" href="/public/css/table.css">
@@ -31,6 +32,7 @@ if(!isset($subscription_plans[0]["id"])){
                 <th>Book issue Limit</th>
                 <th>Issue Days</th>
                 <th>Time period</th>
+                <th>Starting Date</th>
             
 
             </tr>
@@ -45,6 +47,8 @@ if(!isset($subscription_plans[0]["id"])){
                     echo '<td data-label="Book Issue Limit">' . $subscription_plan["book_issue_limit"] . '</td>';
                     echo '<td data-label="Issue Days">' . $subscription_plan["issue_days"] . '</td>';
                     echo '<td data-label="Time Period">' . $subscription_plan["time_period"] . '</td>';
+                    echo '<td data-label="Starting Date">' . $subscription_plan["purchase_date"] . '</td>';
+
                     echo "</tr>";
                 }
             

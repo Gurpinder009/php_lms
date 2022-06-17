@@ -41,7 +41,7 @@ if(isset($records["error"])){
                     echo '<td data-label="Expected Return Date">' . $record["expected_return_date"] . '</td>';
                     if($record["return date"] == null){
                         echo '<td data-label="Return Date">Null</td>';
-                        echo '<td data-label="Return Status"><a href="/return_book/'.$record["accession_no"].'"> return </a></td>';
+                        echo '<td data-label="Return Status"><a href="/return_book/'.$record["accession_no"].'" onclick="return confirm(`Are you sure?`)"  > return </a></td>';
                     }else{
                         echo '<td data-label="Return Date">'.$record["return date"].'</td>';
                         echo '<td data-label="Return Status">returned</td>';
@@ -50,8 +50,11 @@ if(isset($records["error"])){
                 }
                 ?>
 
+
+
             </tbody>
         </table>
+        
     </div>
 </div>
 

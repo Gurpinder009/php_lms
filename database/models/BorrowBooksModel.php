@@ -2,7 +2,7 @@
 
 namespace Database\Models;
 
-
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 
@@ -19,6 +19,7 @@ class BorrowBooksModel
                 ->fetchAll();
             return $result;
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -42,6 +43,7 @@ class BorrowBooksModel
             }
             throw  new \PDOException("Operation Failed");
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -79,6 +81,7 @@ class BorrowBooksModel
             }
             throw new \PDOException("Operation Failed");
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -97,6 +100,7 @@ class BorrowBooksModel
             $stmt->bindParam(":id", $id);
             return $stmt->execute();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -116,6 +120,7 @@ class BorrowBooksModel
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -131,8 +136,8 @@ class BorrowBooksModel
                 ->query("select count(*) as count from borrow_books bb inner join subscribers s on s.id = bb.subscriber_id  where bb.`return date` is null;")->fetch()["count"];
             
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         } finally {
             unset($stmt);
         }
@@ -154,8 +159,8 @@ class BorrowBooksModel
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         } finally {
             unset($stmt);
         }
@@ -214,6 +219,7 @@ class BorrowBooksModel
                 return false;
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);

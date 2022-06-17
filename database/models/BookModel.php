@@ -2,6 +2,7 @@
 
 namespace Database\Models;
 
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 class BookModel
@@ -18,6 +19,7 @@ class BookModel
                 (books b left join authors a on b.author_id=a.id ) left join publishers as p on b.publisher_id=p.id left join categories as c on b.category_id = c.id;"
             )->fetchAll();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -28,6 +30,7 @@ class BookModel
                 "select * from books where accession_no not in (select b.accession_no from books b inner join borrow_books bb on bb.book_id = b.accession_no where bb.`return date` is null);"
             )->fetchAll();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -47,6 +50,7 @@ class BookModel
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -66,6 +70,7 @@ class BookModel
                 return $stmt->fetchAll();
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -81,6 +86,7 @@ class BookModel
                 return $stmt->fetchAll();
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -105,6 +111,7 @@ class BookModel
             $stmt->bindParam(":language", $data["language"]);
             return $stmt->execute();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -121,8 +128,8 @@ class BookModel
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         }  
     }
 
@@ -135,6 +142,7 @@ class BookModel
                 ->query("select count(*) as book_count from books")->fetch();
             return $result["book_count"];
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -159,6 +167,7 @@ class BookModel
             $stmt->bindParam(":language", $data["language"]);
             return $stmt->execute();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);

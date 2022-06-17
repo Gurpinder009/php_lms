@@ -3,7 +3,6 @@
 use Database\Models\SubscriberModel;
 use Database\Models\SubscriptionPlanModel;
 staff_auth();
-require_once(__DIR__ . "/../../layout/navbar.php");
 $subscribers = SubscriberModel::all();
 if (isset($subscribers["error"])) {
     redirect("404",$subscribers["error"]);
@@ -12,8 +11,11 @@ if (isset($subscribers["error"])) {
 $subscription_plans = SubscriptionPlanModel::Activeall();
 
 if (isset($subscription_plans["error"])) {
-    redirect("404",$subscription_plans["error"]);
+    print_r($subscription_plans["error"]);
+    // redirect("404",$subscription_plans["error"]);
+    die();
 }
+require_once(__DIR__ . "/../../layout/navbar.php");
 ?>
 
 <link rel="stylesheet" href="../../../../public/css/forms.css">

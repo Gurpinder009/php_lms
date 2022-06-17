@@ -11,8 +11,8 @@ if(isset($_GET["redirect"])){
     echo "<p>Go to <a href='/home'>home</a></p>";
 }
 
-if(!isset($_SESSION)){
-    session_start();
-}
+// if(!isset($_SESSION)){
+//     session_start();
+// }
 
-print_r($_SESSION);
+// print_r($_SESSION);

@@ -41,6 +41,7 @@ class StaffModel
             if(!$conn){
                 $conn->rollBack();
             }
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
 
@@ -55,6 +56,7 @@ class StaffModel
             $conn = DatabaseConnection::getInstance();
             return $conn->query("select * from person p inner join staff_members s on p.id = s.person_id;")->fetchAll();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
 
         }
@@ -76,8 +78,8 @@ class StaffModel
             }
             throw new \PDOException("No data Found");
         } catch (\PDOException$ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         } finally {
             unset($stmt);
         }
@@ -93,6 +95,7 @@ class StaffModel
             $stmt->bindParam(":id", $id);
             return $stmt->execute();
         } catch (\PDOException$ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
 
         } finally {
@@ -117,6 +120,7 @@ class StaffModel
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -140,8 +144,8 @@ class StaffModel
                 throw new \PDOException("No data found");
             }
         } catch (\PDOException$ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         } finally {
             unset($stmt);
         }
@@ -167,6 +171,7 @@ class StaffModel
             }
             return ["error"=>"Wrong Password"];
         } else {
+            
             return ["error"=>"Email Address is not registered"];
         }
     }
@@ -179,6 +184,7 @@ class StaffModel
             ->query("select count(*) as staff_member_count from staff_members;")->fetch();
             return $result["staff_member_count"]; 
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }

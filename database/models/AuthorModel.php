@@ -6,6 +6,7 @@ namespace Database\Models;
 use Config\Interfaces\ModelInterface;
 use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
+use Monolog\Logger;
 
 class AuthorModel implements ModelInterface
 {
@@ -18,7 +19,7 @@ class AuthorModel implements ModelInterface
             $result = $conn->query("select * from authors;");
             return $result->fetchAll();
         } catch (\PDOException $ex) {
-            LogHandler::errorLog("Author::all",["error"=>$ex->getMessage(),"code"=>$ex->getCode()]);
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -39,7 +40,8 @@ class AuthorModel implements ModelInterface
                 throw new \PDOException("No data is available");
             }
         } catch (\PDOException $ex) {
-            LogHandler::errorLog("Author::find",["error"=>$ex->getMessage(),"code"=>$ex->getCode()]);
+            
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
             
         } finally {
@@ -58,6 +60,7 @@ class AuthorModel implements ModelInterface
             $stmt->bindParam(":info", $data['contact_info']);
             return $stmt->execute();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -80,6 +83,7 @@ class AuthorModel implements ModelInterface
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
             
         } finally {
@@ -98,8 +102,8 @@ class AuthorModel implements ModelInterface
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-            
         }
     }
 
@@ -115,8 +119,8 @@ class AuthorModel implements ModelInterface
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-            
         } finally {
             unset($stmt);
         }
@@ -128,11 +132,11 @@ class AuthorModel implements ModelInterface
     {
         try {
             $result = DatabaseConnection::getInstance()
-                ->query("select count(*) as author_count from authors")->fetch();
+                ->query("select count(*) as author_count from authors;")->fetch();
             return $result["author_count"];
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-            
         }
     }
 }

@@ -31,7 +31,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
             <?php
 
             foreach ($subscription_plans as $subscription_plan) {
-                $subscription_plan["description"] = $subscription_plan["description"] ? "active":"not active";
+                $subscription_plan["isActive"] = $subscription_plan["isActive"] ? "active":"not active";
                 echo "<tr>";
                 echo '<td data-label="S no">' . $subscription_plan["id"] . '</td>';
                 echo '<td data-label="Title">' . $subscription_plan["title"] . '</td>';
@@ -39,7 +39,7 @@ require_once(__DIR__ . "/../../layout/navbar.php");
                 echo '<td data-label="Book Issue Limit">' . $subscription_plan["book_issue_limit"] . '</td>';
                 echo '<td data-label="Issue Days">' . $subscription_plan["issue_days"] . '</td>';
                 echo '<td data-label="Time Period">' . $subscription_plan["time_period"] . '</td>';
-                echo '<td data-label="Description">' . $subscription_plan["description"] . '</td>';
+                echo '<td data-label="Description">' . $subscription_plan["isActive"] . '</td>';
                 echo "<td data-label='Edit'><a href= '/edit/subscription_plan/".$subscription_plan["id"]."'>Edit</a></td>";
 
                 echo "</tr>";

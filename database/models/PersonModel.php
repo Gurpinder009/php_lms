@@ -15,6 +15,7 @@ class PersonModel{
             $conn = DatabaseConnection::getInstance();
             return $conn->query("select * from person")->fetchAll();
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
 
         }
@@ -34,6 +35,7 @@ class PersonModel{
                 throw new \PDOException("No Data Available");
             }
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }    
     }
@@ -43,6 +45,7 @@ class PersonModel{
         try{
             return DatabaseConnection::getInstance()->query("select last_insert_id() from person;")->fetch()['last_insert_id()'];
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -65,8 +68,8 @@ class PersonModel{
             return $stmt->execute();
 
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         }
     }
 
@@ -82,6 +85,7 @@ class PersonModel{
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -95,8 +99,8 @@ class PersonModel{
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
-
         }
     }
 
@@ -116,6 +120,7 @@ class PersonModel{
                 throw new \PDOException("No data found");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);

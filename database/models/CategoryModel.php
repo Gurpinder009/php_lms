@@ -1,6 +1,8 @@
 <?php
     declare(strict_types=1);
 namespace Database\Models;
+
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 class CategoryModel
@@ -14,6 +16,7 @@ class CategoryModel
             $conn = DatabaseConnection::getInstance();
             return $conn->query("select * from categories;")->fetchAll();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -30,6 +33,7 @@ class CategoryModel
             $stmt->bindParam(":contact_info", $data['description']);
             return $stmt->execute();
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
             
         } finally {
@@ -46,6 +50,7 @@ class CategoryModel
             $stmt->bindParam(":id",$id);
             return $stmt->execute();
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -62,6 +67,7 @@ class CategoryModel
             return $stmt->execute(); 
 
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage()];
         }
     }
@@ -82,6 +88,7 @@ class CategoryModel
                 throw new \PDOException("No data found");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -96,6 +103,7 @@ class CategoryModel
                 ->query("select count(*) as category_count from categories;")->fetch();
             return $result["category_count"];
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -117,6 +125,7 @@ class CategoryModel
                 throw new \PDOException("No data found");
             }
         }catch(\PDOException $ex){
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error"=>$ex->getMessage(),"code"=>$ex->getCode()];
         }finally{
             unset($stmt);

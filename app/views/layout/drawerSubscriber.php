@@ -1,10 +1,10 @@
 <?php
 $subscriber_link = [
-    ["name" => "Dashboard", "href" => "/userDashboard"],
+    ["name" => "Dashboard", "href" => "/subscriber_dashboard"],
     ["name" => "All Books", "href" => "/subscriber/books"],
     ["name" => "Subscription Plan", "href" => "/subscriber/subscription_plan"],
     ["name" => "Categories", "href" => "/subscriber/issued_books"],
-    ["name" => "Logout", "href" => "/loggout"]
+    ["name" => "Logout", "href" => "/logout"]
 ];
 
   

@@ -6,7 +6,11 @@ namespace Database;
 
 
 //getting the information from .env file 
+
+use Config\LoggerConfig\LogHandler;
 use Dotenv\Dotenv as DotEnv;
+use Monolog\Logger;
+
 $dotenv = DotEnv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
@@ -29,6 +33,7 @@ class DatabaseConnection
             self::$conn =  new \PDO("mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_DATABASE'] . ";", $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'],[
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC 
             ]);
+            LogHandler::infoLog(__METHOD__, ["info" =>"Database connection is establish"]);
         }
         return self::$conn;
     }

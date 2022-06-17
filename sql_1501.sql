@@ -24,10 +24,11 @@ PRIMARY KEY person_pk(`id`)
 
 
 -- creating subscription table 6
+
 CREATE TABLE IF NOT EXISTS `subscription_plans`(
 	`id` INT AUTO_INCREMENT,
     `title` VARCHAR (85),
-	`description` ENUM("0","1"),
+	`isActive` ENUM("0","1"),
     `price` INT,
     `book_issue_limit` INT,
     `issue_days` INT,
@@ -158,25 +159,27 @@ DROP TABLE IF EXISTS BORROW_BOOKS;
 DROP TABLE IF EXISTS AUTHORS;
 DROP TABLE IF EXISTS CATEGORIES;
 DROP TABLE IF EXISTS PUBLISHERS;
-DROP TABLE IF EXISTS SUBSCRIPTIONS;
+DROP TABLE IF EXISTS SUBSCRIPTIONS_PLANS;
 drop table SUBSCRIBES_TO;
 
 -- DELETING DATA FROM TABLES
 -- set sql_safe_updates=0;
 DELETE FROM PERSON;
 DELETE FROM STAFF_MEMBERS;
-DELETE FROM CUSTOMERS;
+DELETE FROM SUBSCRIBERS;
 DELETE FROM BOOKS;
 DELETE FROM BORROW_BOOKS;
 DELETE FROM AUTHORS;
 DELETE FROM CATEGORIES;
 DELETE FROM PUBLISHERS;
-DELETE FROM ROLES;
-DELETE FROM SUBSCRIPTIONS;
 
+DELETE FROM SUBSCRIPTION_PLANS;
+DELETE FROM SUBSCRIBES_TO;
 -- select last_insert_id() from books;
 -- DELETE FROM CUSTOMERS WHERE id = 1;
 -- delete from staff_members w here ;
+
+set sql_safe_updates = 1;
 
 
 -- select sp.issue_days as issue_days from subscribers s inner join subscribes_to st on s.id = st.subscriber_id inner join subscription_plans sp on sp.id = st.subscription_plan_id where s.id = 1;
@@ -184,64 +187,14 @@ DELETE FROM SUBSCRIPTIONS;
 -- alter table subscription_plans drop column description; 
 -- alter table subscription_plans add column isActive ENUM('0','1') not null default("1");
 
-
-INSERT INTO `php_project`.`subscribes_to` (`id`, `subscription_plan_id`, `subscriber_id`, `purchase_date`) VALUES ('1', '1', '1', '2022-06-16');
-
-
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '1 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'English', '1', '1 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'punjabi', '1', '1 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'punjabi', '1', '1 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'punjabi', '1', '1 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'best ', '550', '2020-06-23', 'punjabi', '1', '1 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'good ', '550', '2020-06-23', 'punjabi', '1', '1 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'good ', '550', '2020-06-23', 'punjabi', '1', '1 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'good ', '550', '2020-06-23', 'punjabi', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'good ', '550', '2020-06-23', 'punjabi', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title', 'good ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'good ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'good ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'good ', '550', '2020-06-23', 'Hindi', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'good ', '550', '2020-06-23', 'Hindi', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'good ', '550', '2020-06-23', 'Hindi', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'good ', '550', '2020-06-23', 'Hindi', '1', '15 ', '1 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'best ', '550', '2020-06-23', 'Hindi', '1', '15 ', '1 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'best ', '550', '2020-06-23', 'Hindi', '1', '15 ', '1 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'best ', '550', '2020-06-23', 'Hindi', '1', '15 ', '1 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'best ', '550', '2020-06-23', 'Hindi', '1', '15 ', '1 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'bad ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'bad ', '550', '2020-06-23', 'English', '1', '2 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'bad ', '550', '2020-06-23', 'English', '1', '2 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'bad ', '550', '2020-06-23', 'spanish', '1', '2 ', '5 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'bad ', '550', '2020-06-23', 'spanish', '1', '2 ', '1 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title2', 'bad ', '550', '2020-06-23', 'spanish', '1', '2 ', '1 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'bad ', '550', '2020-06-23', 'spanish', '1', '2 ', '1 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'bad ', '550', '2020-06-23', 'spanish', '1', '2 ', '1 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'bad ', '550', '2020-06-23', 'spanish', '1', '2 ', '1 ', '1');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'bad ', '550', '2020-06-23', 'spanish', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'bad ', '550', '2020-06-23', 'spanish', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '5 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '1 ', '7');
-INSERT INTO `BOOKS` ( `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES ('Book title3', 'best ', '550', '2020-06-23', 'English', '1', '15 ', '1 ', '7');
-
-
-
-INSERT INTO `php_project`.`PERSON` (`id`, `name`, `email`, `dob`, `city`, `state`, `country`, `pin_code`, `phone_num`, `password`) VALUES ('3', 'Gurjot Singh', 'gsinghsaggu6@gmail.com', '2000-02-11', 'Banga ', 'Punjab', 'India', '144059', '3829837492', 'password@123');
-
-
-
-INSERT INTO `php_project`.`AUTHORS` (`id`, `name`, `contact_info`) VALUES ('1', 'Parteek', 'parteek@gmail.com');
-INSERT INTO `php_project`.`CATEGORIES` (`id`, `name`, `desc`) VALUES ('1', 'Software Engineering', 'all about software development');
-INSERT INTO `php_project`.`publishers` (`id`, `name`, `contact_info`) VALUES ('1', 'Kalyani', 'Kalyani@gmail.com');
-INSERT INTO `php_project`.`subscribers` (`id`, `person_id`) VALUES ('1', '3');
-INSERT INTO `php_project`.`STAFF_MEMBERs` (`id`, `person_id`, `salary`, `is_admin`) VALUES ('3', '4', '12000', '0');
-INSERT INTO `php_project`.`subscription_plans` (`id`, `title`, `description`, `price`, `book_issue_limit`, `issue_days`, `time_period`) VALUES ('1', 'Diamond', 'High End Plan', '500', '4', '20', '30');
-INSERT INTO `php_project`.`subscribes_to` (`id`, `subscription_plan_id`, `subscriber_id`, `purchase_date`) VALUES ('1', '1', '1', '2022-06-16');
-INSERT INTO `php_project`.`BORROW_BOOKS` (`id`, `issue_date`, `return date`, `expected_return_date`, `book_id`, `subscriber_id`) VALUES ('1', '2022-06-16', '2022-06-3', '2022-06-18', '1', '1');
+INSERT IGNORE INTO `php_project`.`AUTHORS` (`id`, `name`, `contact_info`) VALUES ('1', 'Parteek', 'parteek@gmail.com');
+INSERT IGNORE INTO `php_project`.`CATEGORIES` (`id`, `name`, `desc`) VALUES ('1', 'Software Engineering', 'all about software development');
+INSERT IGNORE INTO `php_project`.`PUBLISHERS` (`id`, `name`, `contact_info`) VALUES ('1', 'Kalyani', 'kal@gmail.com');
+INSERT IGNORE INTO `BOOKS` (`accession_no`, `title`, `condition`, `page_count`, `year_of_publication`, `language`, `volume`, `publisher_id`, `category_id`, `author_id`) VALUES (1,'Book title', 'best ', '550', '2020-06-23', 'English', '1', '1 ', '1 ', '1');
+INSERT IGNORE INTO `php_project`.`PERSON` (`id`, `name`, `email`, `dob`, `city`, `state`, `country`, `pin_code`, `phone_num`, `password`) VALUES ('1', 'Gurpinder Singh', 'singh9464274057@gmail.com', '2000-11-15', 'Banga ', 'Punjab', 'India', '144509', '3829837492', 'password@123');
+INSERT IGNORE INTO `php_project`.`PERSON` (`id`, `name`, `email`, `dob`, `city`, `state`, `country`, `pin_code`, `phone_num`, `password`) VALUES ('2', 'Gurjot singh', 'gsinghsaggu@gmail.com', '2000-02-11', 'Phagwara', 'Punjab', 'India', '144059', '382947492', 'password@123');
+INSERT IGNORE INTO `php_project`.`subscription_plans` (`id`, `title`, `isActive`, `price`, `book_issue_limit`, `issue_days`, `time_period`) VALUES ('1', 'Diamond', '0', '500', '4', '20', '30');
+INSERT IGNORE INTO `php_project`.`subscribers` (`id`, `person_id`) VALUES ('1', '2');
+INSERT IGNORE INTO `php_project`.`STAFF_MEMBERs` (`id`, `person_id`, `salary`, `is_admin`) VALUES ('1', '1', '12000', '0');
+INSERT IGNORE INTO `php_project`.`BORROW_BOOKS` (`id`, `issue_date`, `return date`, `expected_return_date`, `book_id`, `subscriber_id`) VALUES ('1', '2022-06-16', NULL, '2022-06-18', '1', '1');
+INSERT IGNORE INTO `php_project`.`subscribes_to` (`id`, `subscription_plan_id`, `subscriber_id`, `purchase_date`) VALUES ('1', '1', '1', '2022-06-16');

@@ -2,6 +2,7 @@
 
 namespace Database\Models;
 
+use Config\LoggerConfig\LogHandler;
 use Database\DatabaseConnection;
 
 
@@ -39,6 +40,7 @@ class SubscriberModel
             if (!$conn) {
                 $conn->rollBack();
             }
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -55,6 +57,7 @@ class SubscriberModel
           
 
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -76,6 +79,7 @@ class SubscriberModel
                 throw new \PDOException("No data Found");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -96,6 +100,7 @@ class SubscriberModel
                 return false;
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -122,6 +127,7 @@ class SubscriberModel
                 return $result;
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -143,6 +149,7 @@ class SubscriberModel
                 throw new \PDOException("No data available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -165,6 +172,7 @@ class SubscriberModel
                 throw new \PDOException("No data found");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -202,6 +210,7 @@ class SubscriberModel
                 ->query("select count(*) as subscriber_count from subscribers")->fetch();
             return $result["subscriber_count"];
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         }
     }
@@ -222,6 +231,7 @@ class SubscriberModel
                 throw new \PDOException("No data Found");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -244,6 +254,7 @@ class SubscriberModel
                 return $result;
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -257,7 +268,7 @@ class SubscriberModel
         $stmt = null;
         try {
             $conn = DatabaseConnection::getInstance();
-            $stmt = $conn->prepare("select sp.* from subscribers s left join subscribes_to st on st.subscriber_id = s.id left join subscription_plans sp on sp.id = st.subscription_plan_id where s.id = :id ;");
+            $stmt = $conn->prepare("select sp.*,st.purchase_date from subscribers s left join subscribes_to st on st.subscriber_id = s.id left join subscription_plans sp on sp.id = st.subscription_plan_id where s.id = :id ;");
             $stmt->bindParam(":id", $id);
             if ($stmt->execute()) {
                 $result = $stmt->fetchAll();
@@ -267,6 +278,7 @@ class SubscriberModel
                 throw new \PDOException("No active subscription plan is available");
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
@@ -290,6 +302,7 @@ class SubscriberModel
                 return 0;
             }
         } catch (\PDOException $ex) {
+            LogHandler::warningLog(__METHOD__, ["error" => $ex->getMessage(), "code" => $ex->getCode()]);       
             return ["error" => $ex->getMessage(),"code"=>$ex->getCode()];
         } finally {
             unset($stmt);
